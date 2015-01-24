@@ -1,0 +1,7 @@
+../../story/whatisnext.htm?../experiments/html_css/story.txt                What is Next?
+1_html5.html                                                                HTML 5 Exercise
+2_form.html                                                                 HTML Form Exercise
+3_css.html                                                                  CSS Exercise
+4_layout.html                                                               Layout Exercise
+5_responsive_design.html                                                    Responsive Design Exercise
+story.txt                                                                   The story file for this story
