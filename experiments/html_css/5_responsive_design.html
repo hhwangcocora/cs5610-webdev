@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>This is an exercise about responsive design</title>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        article {
+            padding: 5px;
+            text-align: justify;
+        }
+
+        article h2 {
+            text-align: center;
+        }
+
+        #west, #east {
+            width: 100px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #center {
+            background-color: darkslategrey;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #north, #south {
+            clear: both;
+        }
+
+        #north {
+            background-color: #FFCC00;
+            text-align: center;
+        }
+
+        #container {
+            margin: auto;
+        }
+
+        #west a {
+            background-color: aqua;
+            text-decoration: none;
+            display: block;
+            border: dotted 1px #000000;
+            margin-bottom: 10px;
+            padding: 2px;
+        }
+
+        #east form {
+            text-align: left;
+        }
+
+        form input {
+            width: 80px;
+        }
+
+        @media screen and (min-width: 800px) {
+            #center {
+                width: 600px;
+            }
+
+            #north, #south, #container {
+                width: 800px;
+            }
+
+            #west, #center, #east {
+                float: left;
+            }
+        }
+
+        @media screen and (min-width: 500px) and (max-width: 800px) {
+            #center {
+                width: 300px;
+            }
+
+            #north, #south, #container {
+                width: 500px;
+            }
+
+            #west, #center, #east {
+                float: left;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            #center {
+                width: 400px;
+            }
+
+            #north, #south, #container {
+                width: 400px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <header id="north">Responsive Design Exercise</header>
+    <nav id="west">
+        <a href="#documentation">Documentation</a>
+        <a href="#code-snippet">Code Snippet</a>
+        <a href="#reference">Reference</a>
+        <a href="#source-code">Source Code</a>
+    </nav>
+    <main id="center">
+        <article>
+            <h2>This is the article's title</h2>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique nisl eu lorem dapibus, maximus
+                facilisis elit rhoncus. Aenean quis convallis leo. Phasellus laoreet ex eu quam feugiat, non vulputate
+                mauris dapibus. Donec tempus volutpat enim a gravida. Sed at bibendum est, eu molestie orci. Donec
+                vestibulum placerat risus ac imperdiet. Nunc suscipit, enim aliquam vulputate laoreet, libero velit
+                elementum orci, in sodales orci eros a neque. Etiam vulputate tempus placerat. Suspendisse scelerisque
+                velit id ligula vulputate pellentesque. Quisque pharetra congue blandit. Nam in lectus malesuada,
+                ultricies est eget, scelerisque nulla.</p>
+
+            <p>Nulla ut ornare libero. Aliquam pellentesque quam nec diam lobortis, hendrerit hendrerit orci semper.
+                Donec suscipit fringilla lorem et posuere. Suspendisse lectus leo, molestie quis felis eget, cursus
+                aliquet nisi. Etiam eros lacus, porttitor ut dolor sit amet, consectetur dictum libero. Proin ut ipsum
+                in erat congue tempor eu vitae nibh. Proin quis nunc in massa laoreet aliquet sit amet quis metus. Nulla
+                ac ipsum sem. Quisque varius ligula lacinia nulla ornare, at mollis ligula pulvinar. Aliquam tristique
+                feugiat lectus sit amet porttitor. Vestibulum neque diam, malesuada pulvinar dictum porta, finibus
+                porttitor massa. Cras ac neque dui. Integer sit amet facilisis dui. Nam eget orci suscipit, bibendum
+                orci eu, consectetur massa.</p>
+
+            <p>Maecenas non gravida quam. Cras ac nunc aliquet, ultricies leo lobortis, feugiat leo. Sed iaculis
+                fringilla sapien, vel volutpat tellus dictum vel. Duis vel elit gravida, mollis magna eget, aliquam mi.
+                Duis purus tortor, tristique non vulputate aliquet, molestie ac nunc. Fusce rhoncus eleifend suscipit.
+                Aenean non massa at tellus molestie rhoncus in non turpis. Phasellus facilisis consequat orci id
+                ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                Curabitur a dolor quis mi rhoncus molestie.</p>
+
+            <p>Morbi rhoncus aliquam iaculis. Aliquam aliquam laoreet mi, id aliquet risus volutpat a. Mauris et metus
+                est. Quisque auctor porta facilisis. Quisque varius laoreet pharetra. Vestibulum elementum et leo eu
+                vulputate. Curabitur nec auctor magna. Nullam egestas eu metus nec mollis. Donec sagittis blandit risus,
+                eget pulvinar ligula. Quisque quis egestas sem. Maecenas imperdiet consequat nunc, ut laoreet turpis
+                dignissim ac. Praesent eu rutrum elit. Nam porttitor nulla lorem.</p>
+
+            <p>Quisque lectus augue, consequat a varius in, semper non justo. Praesent interdum tellus quis turpis
+                pulvinar efficitur. Proin rutrum magna sit amet posuere vulputate. Donec a magna dignissim, congue ante
+                a, rhoncus libero. Nullam rhoncus tortor tortor, porttitor cursus mi tincidunt quis. Aenean feugiat
+                libero libero, in efficitur dui mattis eu. Donec placerat elementum nibh sed maximus. Pellentesque
+                scelerisque nibh et libero consequat, at cursus odio maximus. Phasellus ultricies vitae nunc a
+                consectetur.</p>
+
+        </article>
+    </main>
+    <aside id="east">
+        <form>
+            <label for="username">User name:</label>
+            <input name="username" type="text" id="username"/>
+            <label for="password">Password:</label>
+            <input name="password" type="password" id="password"/>
+            <button type="submit">Submit</button>
+        </form>
+    </aside>
+    <footer id="south">
+        <div>
+            <a name="documentation"></a>
+
+            <h2>Documentation</h2>
+
+            <p>In this exercise, the html page is responsive to screen width. By using @media screen and (max-width: X)
+                and (min-width: Y), the width of flow layout is adjusted to fit into the width of screen so that there
+                is no horizontal scroll bar appear after resize browser smaller.</p>
+
+            <p>There are 2 breakpoints defined: 1) less than 500px, for phone screen; 2) larger than 500px and less than
+                800px,
+                for tablet; 3) larger than 800px, for laptop screen.</p>
+        </div>
+        <div>
+            <a name="code snippet"></a>
+
+            <h2>Code Snippet</h2>
+
+            <pre>
+            "
+        @media screen and (min-width: 800px) {
+            #center {
+                width: 600px;
+            }
+            #north, #south, #container {
+                width: 800px;
+            }
+            #west, #center, #east {
+                float: left;
+            }
+        }
+
+        @media screen and (min-width: 500px) and (max-width: 800px) {
+            #center {
+                width: 300px;
+            }
+            #north, #south, #container {
+                width: 500px;
+            }
+            #west, #center, #east {
+                float: left;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            #center {
+                width: 400px;
+            }
+            #north, #south, #container {
+                width: 400px;
+            }
+        }
+                "
+            </pre>
+        </div>
+        <div>
+            <a name="reference"></a>
+
+            <h2>Reference</h2>
+
+            <p><a href="http://www.w3schools.com/htmL/">W3C School HTML</a></p>
+        </div>
+        <div>
+            <a name="source-code"></a>
+
+            <h2>Code</h2>
+
+            <p><a href="../../fileview/Default.aspx?~/experiments/html_css/5_responsive_design.html">Click here to view the source
+                file</a></p></p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

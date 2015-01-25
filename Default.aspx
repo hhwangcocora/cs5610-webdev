@@ -52,6 +52,14 @@
     {
         text-align: justify;
     }
+
+    #self-intro img {
+        width: 700px;
+        height: 400px;
+        background-color: #FFFF77;
+        alignment: center;
+    }
+
 </style>
 
 <style type="text/css" media="screen">
@@ -112,9 +120,13 @@
 
 <hr />
 
-<p>
-    It would be helpful if your home page shows your name and a
-    photo of yourself.  This will help us to get to know you. 
+<p id="self-intro">
+    <img src="images/homepage/my.jpg"/>
+    <p>Hi, I'm Huihong Wang, currently a CS master candidate in Northeastern University.
+    This is my second year and I'll graduate on May soon. It's really a nice experience
+    studying in Boston!</p>
+    <p>I like painting (sketching, oil painting) in my spare time. I also enjoy reading, watching movies
+    and sports such as swimming, running, badminton and pingpong.</p>
 </p>
     
 <hr />
