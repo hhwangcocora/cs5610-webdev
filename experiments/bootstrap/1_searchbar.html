@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 2 experiment - bootstrap</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 1: search bar using bootstrap</h1>
+
+    <div>
+        <h2 class="col-sm-offset-2">Search course
+            <small>Advanced Search</small>
+        </h2>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="level" class="col-sm-2 control-label">Course Level:</label>
+
+                <div class="col-sm-2">
+                    <select class="form-control" id="level">
+                        <option>Graduate</option>
+                        <option>Undergraduate</option>
+                        <option>CPS</option>
+                        <option>ALL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="subject" class="col-sm-2 control-label">Subject:</label>
+
+                <div class="col-sm-2">
+                    <select class="form-control" id="subject">
+                        <option>Computer Science</option>
+                        <option>Liberty</option>
+                        <option>Chemistry</option>
+                        <option>Electronic Engineering</option>
+                        <option>Applied Mathematics</option>
+                        <option>ALL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="schedule_type" class="col-sm-2 control-label">Schedule Type:</label>
+
+                <div class="col-sm-2">
+                    <select class="form-control" id="schedule_type">
+                        <option>Studio</option>
+                        <option>Individual</option>
+                        <option>Lab</option>
+                        <option>ALL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="campus" class="col-sm-2 control-label">Course Level:</label>
+
+                <div class="col-sm-2">
+                    <select class="form-control" id="campus">
+                        <option>Boston</option>
+                        <option>Seattle</option>
+                        <option>Online</option>
+                        <option>ALL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="courseNumber" class="col-sm-2 control-label">Course Number: </label>
+
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="courseNumber" placeholder="Course Number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="courseTitle" class="col-sm-2 control-label">Course Title: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="courseTitle" placeholder="Course Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Credit Range: </label>
+                <div class="input-group col-sm-4">
+                    <div class="input-group-addon">From</div>
+                    <input type="number" class="form-control" id="fromCredit" placeholder="credit">
+                    <div class="input-group-addon">To</div>
+                    <input type="number" class="form-control" id="toCredit" placeholder="credit">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Days: </label>
+                <div class="col-sm-4">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="day1" value="1">Mon
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="day2" value="2">Tue
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="day3" value="3">Wed
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="day4" value="4">Thu
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="day5" value="5">Fri
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-2" type="submit">Search</button>
+            <button class="btn btn-default" type="reset">Reset</button>
+        </form>
+    </div>
+    <div>
+        <h2>Documentation</h2>
+        <p>In this experiment, I used bootstrap css to stylish a typical search form. (Similar to the advanced search
+            page in our myNEU course search. )</p>
+        <p>First of all, the whole form is put inside <code>container</code> to make it stay in middle of screen.
+        Then, I used <code>col-sm-</code> to layout labels and inputs in the grid system. <code>control-label</code>
+        makes lables align to right. <code>col-sm-2-off</code> moves the header and buttons 2 columns
+        right, to make them align with inputs.</p>
+        <p>For the credit range, I used <code>input-group-addon</code> class so that the 4 elements can concatenate with
+        each other.</p>
+        <p>The two buttons are set to different types, search is primary and reset is default.</p>
+        <p>Finally, to control the input length, I put them inside a <code>div</code> with class set to <code>col-sm-x</code>.
+        The inputs themselves are with class <code>form-control</code>.</p>
+
+        <h2>Code Snippet</h2>
+        <p>Following is about the two buttons at bottom. They are moved 2 columns right, and set to different button types.</p>
+        <pre>
+            &lt;button class="btn btn-primary col-sm-offset-2" type="submit"&gt;Search&lt;/button&gt;
+            &lt;button class="btn btn-default" type="reset"&gt;Reset&lt;/button&gt;
+        </pre>
+        <p>Following is the credit range: </p>
+        <pre>
+            &lt;div class="input-group col-sm-4"&gt;
+                &lt;div class="input-group-addon"&gt;From&lt;/div&gt;
+                &lt;input type="number" class="form-control" id="fromCredit" placeholder="credit"&gt;
+                &lt;div class="input-group-addon"&gt;To&lt;/div&gt;
+                &lt;input type="number" class="form-control" id="toCredit" placeholder="credit"&gt;
+            &lt;/div&gt;
+        </pre>
+        <h2>Reference</h2>
+        <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>
+        <h2>Source code</h2>
+        <p><p><a href="../../fileview/Default.aspx?~/experiments/bootstrap/1_searchbar.html">Click here to view the source file</a></p></p></p>
+    </div>
+</div>
+</body>
+</html>

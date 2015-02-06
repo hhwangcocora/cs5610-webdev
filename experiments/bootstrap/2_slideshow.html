@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 2 experiment - bootstrap</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <style>
+        .fix-slide-window {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 2: slide show using bootstrap</h1>
+    <div class="row">
+
+        <div class="fix-slide-window">
+        <div id="carousel-cloths" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-cloths" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-cloths" data-slide-to="1"></li>
+                <li data-target="#carousel-cloths" data-slide-to="2"></li>
+                <li data-target="#carousel-cloths" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active center-block">
+                    <img src="../../images/experiments/slideshow1.jpg" alt="cloth 1" class="img-responsive img-thumbnail">
+                    <div class="carousel-caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../images/experiments/slideshow2.jpg" alt="cloth 2" class="img-responsive img-thumbnail">
+                    <div class="carousel-caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../images/experiments/slideshow3.jpg" alt="cloth 3" class="img-responsive img-thumbnail">
+                    <div class="carousel-caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../images/experiments/slideshow4.jpg" alt="cloth 4" class="img-responsive img-thumbnail">
+                    <div class="carousel-caption">
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-cloths" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-cloths" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        </div>
+    </div>
+
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>In this experiment, used bootstrap carousel plugin to implement a slide show. Slide show is a very important
+        element in commercial website.</p>
+        <p>The carousel is composed with 3 parts, the <code>carousel-indicators</code> which are a list of spots,
+            <code>carousel-inner</code> are the contents displayed, in this case, they are pictures and captions.
+        <code>carousel-control</code>s are the left and right angle brackets.</p>
+        <p>Since the picture is too small to fill the space, I need to set explicitly the width to 200px, such that
+        there is no empty space left. Also, the left and right angle brackets can only display correctly by linking
+        to the bootstrap css file instead of downloading to local.</p>
+        <h2>Code Snippet</h2>
+
+        <p>Code about carousel</p>
+        <pre>
+                &lt;div id="carousel-cloths" class="carousel slide" data-ride="carousel"&gt;
+                    &lt;ol class="carousel-indicators"&gt;
+                        ...
+                    &lt;/ol&gt;
+                    &lt;div class="carousel-inner" role="listbox"&gt;
+                        &lt;div class="item active center-block"&gt;
+                            &lt;img src="../../images/experiments/slideshow1.jpg" alt="cloth 1" class="img-responsive img-thumbnail"&gt;
+                            &lt;div class="carousel-caption"&gt;
+                                &lt;p&gt;Lorem ipsum dolor sit amet, consectetur&lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        ...
+                    &lt;/div&gt;
+                    &lt;a class="left carousel-control" href="#carousel-cloths" role="button" data-slide="prev"&gt;
+                        &lt;span class="glyphicon glyphicon-chevron-left" aria-hidden="true"&gt;&lt;/span&gt;
+                        &lt;span class="sr-only"&gt;Previous&lt;/span&gt;
+                    &lt;/a&gt;
+                    &lt;a class="right carousel-control" href="#carousel-cloths" role="button" data-slide="next"&gt;
+                        &lt;span class="glyphicon glyphicon-chevron-right" aria-hidden="true"&gt;&lt;/span&gt;
+                        &lt;span class="sr-only"&gt;Next&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/div&gt;
+        </pre>
+        <p> Code to set picture size</p>
+        <pre>
+                .fix-slide-window {
+                    width: 200px;
+                }
+        </pre>
+
+        <h2>Reference</h2>
+        <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>,
+        <a href="http://getbootstrap.com/javascript/" target="_blank">Bootstrap Javascript</a>
+
+        <h2>Source code</h2>
+
+        <p>
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/bootstrap/2_slideshow.html">Click here to view the source
+            file</a></p></p></p>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+<script type="application/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+
+</body>
+</html>

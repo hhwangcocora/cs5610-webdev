@@ -1,0 +1,7 @@
+../../story/whatisnext.htm?../experiments/bootstrap/story.txt               What is Next?
+1_searchbar.html                                                            Search Page
+2_slideshow.html                                                            Slide Show
+3_expandable_comments.html                                                  Expandable comments
+4_tables.html                                                               Tables
+5_popups.html                                                               Popups
+story.txt                                                                   The story file for this story

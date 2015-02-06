@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 3 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 1: todo list using javascript and jQuery</h1>
+</header>
+<main>
+    <div class="container">
+        <h2>TODOs:</h2>
+        <div class="row">
+            <div class="col-sm-4">
+                <form class="form-inline">
+                    <input type="text" id="newItem" class="form-control">
+                    <button type="button" id="addNewItem" class="btn btn-primary" onmouseup="addItem()">Add Todo</button>
+                </form>
+            </div>
+        </div>
+        <div id="list">
+
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I used Javascript and jQuery to create an interactive to-do list management page</p>
+            <p>Javascript is very helpfully in reacting to events happen on the page. In this experiment, the events
+            are mouse up events on the check box, remove box and add todo button. Event handlers are implemented for
+            these events, to update the internal data structure and also refresh the page on data change.</p>
+            <p>jQuery is a javascript library which bridges javascript with HTML DOM, thus assists to query DOM elements
+            in various ways. In this experiment, I used jQuery to get elements identified by id.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code is how the internal todo items are defined, and how they are loaded on the page.</p>
+            <p>The <code>loadTodoItems()</code> is called to reload the todo list, which firstly removes all current
+            children of the <code>list</code> on the page, then traverses through the list and add each one to the page.</p>
+            <p>The <code>appendTodoItem(newItem, i)</code>  creates new div element for the item, set the
+            event handlers and ids, and then append to the list on page.</p>
+            <p>Note: It's very helpful to use Chrome as debug tools to set breakpoints and inspect variables.</p>
+        <pre>
+            var todoItems = [
+                {'check':true, 'description':'This is an example todo text.'},
+                {'check':false, 'description':'Use the check box to mark your todo task as done/undone.'},
+                {'check':false, 'description':'Remove the task by clicking the close icon after the text.'}
+            ]
+
+            // Load items to list at initialization phase
+            function loadTodoItems() {
+                $('#list').empty()
+                for (i in todoItems) {
+                    appendTodoItems(todoItems[i], i)
+                }
+            }
+
+            // Append one item to the list
+            function appendTodoItem(newItem, i) {
+                var lineLeft = $('&lt;div class="col-sm-3"&gt;&lt;/div&gt;')
+                if (newItem['check']) {
+                    $('&lt;span class="glyphicon glyphicon-check" onmousedown="toggleCheck(this)"&gt;&lt;/span&gt;').appendTo(lineLeft)
+                } else {
+                    $('&lt;span class="glyphicon glyphicon-unchecked" onmousedown="toggleCheck(this)"&gt;&lt;/span&gt;').appendTo(lineLeft)
+                }
+                lineLeft.append(newItem['description'])
+                var line = $('&lt;div class="row"&gt;&lt;/div&gt;')
+                line.attr('id', i)
+
+                lineLeft.appendTo(line)
+                $('&lt;div&gt;&lt;span class="glyphicon glyphicon-remove" onmouseup="removeItem(this)"&gt;&lt;/span&gt;&lt;/div&gt;').appendTo(line)
+
+                $('div#list').append(line)
+
+            }
+        </pre>
+            <p> Following code shows how the event handler <code>removeItem(ele)</code> works.</p>
+            <p>This function is called in HTML as <code>onmouseup="removeItem(this)"</code>. <code>this</code> means
+            pass in current element to the event handler. The event handler searches upward to the element's grandparent,
+            to get the id, remove it from the item list, then refresh the page.</p>
+        <pre>
+
+            function removeItem(ele) {
+                todoItems.splice(ele.parentElement.parentElement.id, 1)
+                loadTodoItems()
+            }
+
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="http://www.w3cschools.com" target="_blank">W3C school</a>
+            <h2>Source code</h2>
+
+
+            <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/1_todo_list.html">1_todo_list.html</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/1_todo_list.js">1_todo_list.js</a></p>
+        </div>
+
+    </div>
+
+
+</main>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="1_todo_list.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 2 experiment - bootstrap</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 4: tables using bootstrap</h1>
+
+    <h2>Courses <small>(Filters: Campus=Boston, Department=CCIS)</small></h2>
+
+    <div class="row">
+
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+            <th>Course Number</th>
+            <th>Course Name</th>
+            <th>Campus</th>
+            <th>Professor</th>
+            <th>Time slot</th>
+            <th>Classroom</th>
+            <th>Click to register</th>
+            </tr>
+            </thead>
+            <tr>
+                <td><button type="button" class="btn btn-link" data-toggle="popover" data-trigger="focus" title="CS5610 - Web Development"
+                        data-content="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis eleifend nulla, eget iaculis urna
+                pretium aliquam. Maecenas elit dolor, imperdiet at dui quis.">CS5610</button></td>
+                <td>Web Development</td>
+                <td>Boston</td>
+                <td><a href="#">Professor Name 1</a></td>
+                <td>WF: 11:45am to 1:25pm</td>
+                <td>WVH 110</td>
+                <td><button class="btn btn-default">Register</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-link" data-toggle="popover" data-trigger="focus" title="CS6240 - Distributed System"
+                            data-content="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis eleifend nulla, eget iaculis urna
+                pretium aliquam. Maecenas elit dolor, imperdiet at dui quis.">CS6240</button></td>
+                <td>Distributed System</td>
+                <td>Boston</td>
+                <td><a href="#">Professor Name 1</a></td>
+                <td>TF: 11:45am to 1:25pm</td>
+                <td>WVH 108</td>
+                <td><button class="btn btn-danger">Unregister</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-link" data-toggle="popover" data-trigger="focus" title="CS6100 - Web Development"
+                            data-content="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis eleifend nulla, eget iaculis urna
+                pretium aliquam. Maecenas elit dolor, imperdiet at dui quis.">CS6100</button></td>
+                <td>Information Retrieval</td>
+                <td>Boston</td>
+                <td><a href="#">Professor Name 3</a></td>
+                <td>T: 6:00pm to 9:00pm</td>
+                <td>SH 210</td>
+                <td><button class="btn btn-default">Register</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-link" data-toggle="popover" data-trigger="focus" title="CS5600 - Web Development"
+                            data-content="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis eleifend nulla, eget iaculis urna
+                pretium aliquam. Maecenas elit dolor, imperdiet at dui quis.">CS5600</button></td>
+                <td>Algorithm</td>
+                <td>Boston</td>
+                <td><a href="#">Professor Name 4</a></td>
+                <td>W: 6:00pm to 9:00pm</td>
+                <td>SH 300</td>
+                <td><button class="btn btn-default">Register</button></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>In this experiment, I practise bootstrap table and popover plugin.</p>
+        <p>The table is stylished with classes <code>table</code>, <code>table-hover</code>, and <code>table-striped</code>.
+            <code>table-hover</code> makes the row highlisted when mouse hover on it. <code>table-strped</code> hightlights
+        odd rows. </p>
+        <p>The course numbers are buttons with popovers. When user click it, a popover appears to show the course description.
+        On next click, it disappears. This is implemented by using <code>data-toggle=popover</code>, with <code>data-trigger=focus</code>.
+        Be noted that, popover need to be explicitly enabled. See following code snippet.</p>
+        <h2>Code Snippet</h2>
+
+        <p>Following code is how the popover effect work</p>
+        <pre>
+                &lt;td&gt;&lt;button type="button" class="btn btn-link" data-toggle="popover" data-trigger="focus" title="CS5610 - Web Development"
+                            data-content="Description: ......"&gt;CS5610&lt;/button&gt;&lt;/td&gt;
+        </pre>
+        <p> Following script need to be added explicitly to make popover work.</p>
+        <pre>
+                $(function () {
+                    $('[data-toggle="popover"]').popover()
+                })
+        </pre>
+
+        <h2>Reference</h2>
+        <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>,
+        <a href="http://getbootstrap.com/javascript/" target="_blank">Bootstrap Javascript</a>
+
+        <h2>Source code</h2>
+
+        <p>
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/bootstrap/4_tables.html">Click here to view the source
+            file</a></p></p></p>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+<script type="application/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+
+</body>
+</html>
