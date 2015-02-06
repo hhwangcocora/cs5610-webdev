@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 3 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 2: sortable table using Javascript and jQuery</h1>
+
+    <h2>Sortable Table</h2>
+
+    <div class="row">
+
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Course Number<span id="sortIcon" onmouseup="sort(this)" class="glyphicon glyphicon-triangle-bottom"></span></th>
+                <th>Course Name</th>
+                <th>Campus</th>
+                <th>Professor</th>
+                <th>Time slot</th>
+                <th>Classroom</th>
+            </tr>
+            </thead>
+
+        </table>
+    </div>
+
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>In this experiment, I implemented a sortable table using javascript and jQuery.</p>
+        <p>Sortable table is a very user friendly feature. It helps user to sort the information in order for better
+        understanding and interpretation. It is especially helpful if the page contains a lot data and attributes, since
+        user can locate certain information quickly by putting them in order.</p>
+        <p>I practised on how to use jQuery wildcard selector and javascript sorting function in this experiment.</p>
+        <h2>Code Snippet</h2>
+
+        <p>Following code shows how the jQuery wildcard selector works. It will get all elements whose id matches <code>tr-</code></p>
+        <pre>
+            function emptyTable() {
+                $('[id^=tr-]').empty() // use wildcards to remove all table rows
+            }
+        </pre>
+        <p> Following code is to sort an array of objects. The <code>function(a, b)</code> is the sorting function for the
+            course object. In this experiment, it uses course number to sort object. </p>
+        <pre>
+                function sort(ele) {
+                    if (ele.className == 'glyphicon glyphicon-triangle-bottom') {
+                        ele.className = 'glyphicon glyphicon-triangle-top'
+                        desc = false
+                    } else {
+                        ele.className = 'glyphicon glyphicon-triangle-bottom'
+                        desc = true
+                    }
+                    courses.sort(function(a, b){
+                        if (a.number > b.number) {
+                            return desc ? 1 : -1
+                        }
+                        if (a.number < b.number) {
+                            return desc ? -1 : 1
+                        }
+                        return 0
+                    })
+                    reloadTable()
+                }
+        </pre>
+
+        <h2>Reference</h2>
+        <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>,
+        <a href="http://www.w3cschools.com" target="_blank">W3C school</a>
+        <h2>Source code</h2>
+
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/2_sortable_table.html">2_sortable_table.html</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/2_sortable_table.js">2_sortable_table.js</a></p>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="2_sortable_table.js"></script>
+
+</body>
+</html>
