@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 3 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <style>
+
+        #fileList {
+            overflow-x: hidden;
+        }
+
+        #articleField {
+            border: 1px solid #5bc0de;
+            height: 400px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        #saveFile {
+            margin-top: 5px;
+        }
+
+        .activeArticle {
+            border: dotted 1px gray;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 4: A text editor</h1>
+
+    <div class="row">
+        <div class="col-sm-2">
+
+            <div class="bg-success">
+                <a href="#" id="createArticle" class="btn-link" onclick="createFile(this)"><span class="glyphicon glyphicon-plus"></span>Create</a>
+            </div>
+            <ul class="list-unstyled" id="fileList">
+                <li><a href="#">Sample Document</a></li>
+
+            </ul>
+
+        </div>
+        <div class="col-sm-8" id="articleField" contenteditable="true">
+            <p></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-1">
+            <button class="btn btn-success" id="saveFile" onclick="saveFile(this)">Save</button>
+        </div>
+    </div>
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>In this experiment, I implemented a simple text editor using javascript.</p>
+        <p>The editor has the abilities to create a new file (currently can't change file name), to edit the file, and to
+        save the file. If user refreshes browser, then all the changes of last saved contens will be displayed.</p>
+        <p>Javascript's <code>localStorage</code> is used to save and retrieve the documents. Bootstrap is used to stylish
+        the page.All the documents are represented as a map in javascript, where the key is article title and value is a
+        list of paragraphes. Meanwhile, the article title is also used as id of list item in HTML page (with spaces replaced
+        with underscore) to link back the real article. On loading the page, it'll check if local storage has already have
+        the item key "files", if yes, load from there. Otherwise, use the default sample files.</p>
+
+        <h2>Code Snippet</h2>
+
+        <p> Following code shows how to use javascript <code>localStoraqe</code> to save and retrieve items.</p>
+        <pre>
+                function saveToStorage() {
+                    localStorage.setItem('files', JSON.stringify(articles))
+                }
+
+                function loadFromStorage() {
+                    articles = JSON.parse(localStorage.getItem('files'))
+                }
+
+        </pre>
+        <p>
+            Following code is to load an artitle to the edit field by its title. It will firstly clean the field by calling
+            <code>empty()</code>, then traverse the paragraph list of the article, and append each paragraph to edit field.
+            Finally, it remove the <code>activeArticle</code> class from previous article's title, and add the class to
+            current article's title
+        </p>
+        <pre>
+
+            function loadArticle(title) {
+                if (articles.hasOwnProperty(title)) {
+                    // load article to editable field
+                    $('#articleField').empty()
+                    for (i in articles[title]) {
+                        var p = $('&lt;p&gt;&lt;/p&gt;')
+                        p.html(articles[title][i])
+                        $('#articleField').append(p)
+                    }
+                    // highlight article title
+                    $('.activeArticle').removeClass('activeArticle')
+                    $('#' + getIdFromTitle(title)).addClass('activeArticle')
+                }
+            }
+        </pre>
+
+        <h2>Reference</h2>
+        <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>
+
+        <h2>Source code</h2>
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/4_text_editor.html">4_text_editor.html</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/4_text_editor.js">4_text_editor.js</a></p>
+    </div>
+
+
+</div>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="4_text_editor.js"></script>
+
+</body>
+</html>

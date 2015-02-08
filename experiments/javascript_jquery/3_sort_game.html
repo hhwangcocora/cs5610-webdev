@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 3 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <style>
+        li span {
+            font-size: 2em;
+            background-color: #f6a828;
+            color: beige;
+            border: 1px solid gray;
+            padding: 2px 2px 2px 2px;
+        }
+
+        .newClass {
+            padding: 4px 4px 4px 4px;
+            font-size: 2.5em;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 3: sortable list using jQuery UI</h1>
+    <h2>Sort following numbers from small to large</h2>
+    <ul class="list-inline" id="numbers">
+        <li><span>4</span></li>
+        <li><span>1</span></li>
+        <li><span>0</span></li>
+        <li><span>7</span></li>
+        <li><span>9</span></li>
+        <li><span>3</span></li>
+        <li><span>5</span></li>
+        <li><span>8</span></li>
+    </ul>
+
+    <br/>
+
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>In this experiment, I practised using jQuery GUI <code>sortable</code> and <code>addClass</code> for a user
+        interactive small game.</p>
+        <p>User can drag and drop the number card to sort them ascendingly. This is implemented by calling the <code>sortable()</code>
+        function on all <code>li span</code> elements. On each operation, a function is hooked up to check if the numbers
+        are in order.</p>
+        <p>After user finishing sorting the numbers, the list of numbers will display an animation effect. This is implemented
+        by using the <code>addClass</code> function. The time duration is set to be 1000ms.</p>
+        <h2>Code Snippet</h2>
+
+        <p> Following code is to make the <code>ol</code> to be sortable. The <code>stop</code> argument is pointing to a function,
+        which will be called every time user drag and drop a number card. Inside the function, the list is checked to see if
+        it is in order. <code>addClass</code> is called at the end of the function if the list is already in order.</p>
+        <pre>
+                $(function() {
+                    $('#numbers').sortable({
+                        axis: 'x',
+                        stop: function(event, ui){
+                            // check if the list has been sorted correctly
+                            var numbers = $('#numbers li')
+
+                            var prevNumber
+                            var sorted = true
+                            for (var i = 0; i < numbers.length; i++) {
+                                var currentNumber = numbers[i].innerText
+                                if (i == 0) {
+                                    prevNumber = currentNumber
+                                } else {
+                                    if (prevNumber <= currentNumber) {
+                                        prevNumber = currentNumber
+                                    } else {
+                                        sorted = false
+                                        break;
+                                    }
+                                }
+                            }
+                            if (sorted) {
+                                console.log('success')
+                                numbers.addClass('newClass', 1000)
+                            }
+                        }
+                    })
+                });
+        </pre>
+
+        <h2>Reference</h2>
+        <a href="http://jqueryui.com" target="_blank">jQuery UI</a>,
+
+        <h2>Source code</h2>
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/3_sort_game.html">3_sort_game.html</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/3_sort_game.js">3_sort_game.js</a></p>
+    </div>
+
+
+</div>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="3_sort_game.js"></script>
+
+</body>
+</html>

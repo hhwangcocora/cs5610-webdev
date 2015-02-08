@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 3 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <style>
+        #result {
+            outline: solid 1px lightblue;
+            height: 300px;
+            margin-top: 10px;
+        }
+        #result a {
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Experiment 5: Query Wikipedia using JSONP</h1>
+
+    <div class="row">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="query" class="control-label">Query String: </label>
+
+                <input type="text" class="form-control" id="query" placeholder="for example: Albert Einstein">
+
+            </div>
+            <button class="btn btn-primary" onclick="startQuery(this)" type="reset">Query</button>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-sm-10" id="result">
+            <a target=""></a>
+        </div>
+    </div>
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>In this experiment, I tried access wikipedia database using ajax through JSONP.</p>
+        <p>In this page, user can input some query text in the input field, for example, "Albert", then the underlying
+        javascript code will query the text through wikipedia JSONP API. The first query will get the page id, then
+        another query will be issued to get the page link. Upon completion, all related urls will be displayed in the
+        result field.</p>
+        <p>The difference between CORS and JSONP is, JSONP only supports GET method while CORS supports other kinds of
+        HTTP requests. In this experiment, at first, I tried to use XMLHttpRequest, however it doesn't work. Then I
+        figured out that for JSONP, I can only use AJAX.</p>
+
+        <h2>Code Snippet</h2>
+
+        <p> Following code shows how to use <code>ajax</code> to send a JSONP request to wikipedia. There are two request in
+        the code snippet. The <code>error</code> and <code>success</code> are callback functions for the http request.</p>
+        <pre>
+
+            function sendRequest(query) {
+                var url = "http://en.wikipedia.org/w/api.php?action=query&format=json&callback=test&prop=info&limit=500&titles=" + encodeURIComponent(query);
+                jQuery.ajax({
+                    "async": true,
+                    "url": url,
+                    "dataType": 'jsonp',
+                    "method": "GET",
+                    "error": function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus + ': ' + errorThrown);
+                    },
+                    "success": function (data, textStatus, jqXHR) {
+                        var pages = data.query.pages
+                        for (page in pages) {
+                            jQuery.ajax({
+                                "async": true,
+                                "url": "http://en.wikipedia.org/w/api.php?action=query&format=json&callback=test&prop=info&inprop=url&pageids=" + page,
+                                "dataType": 'jsonp',
+                                "method": "GET",
+                                "error": function (jqXHR, textStatus, errorThrown) {
+                                    console.log(textStatus + ': ' + errorThrown);
+                                },
+                                "success": function (data, textStatus, jqXHR) {
+                                    .....
+                                }
+                            })
+                        }
+
+                        if (data.Error || data.Response) {
+                            exists = 0;
+                        }
+                    }
+                });
+
+            }
+
+
+        </pre>
+
+
+        <h2>Reference</h2>
+        <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>
+        <a href="http://www.w3cschools.com/" target="_blank">W3C School</a>
+
+        <h2>Source code</h2>
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/5_access_wiki.html">5_access_wiki.html</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/javascript_jquery/5_access_wiki.js">5_access_wiki.js</a></p>
+    </div>
+
+
+</div>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="5_access_wiki.js"></script>
+
+</body>
+</html>
