@@ -1,0 +1,105 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 4 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+
+    <script src="2_filter_bar.js"></script>
+    <style>
+        .fixed-col-350 {
+            width: 350px;
+        }
+    </style>
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 2: filter bar using angular js</h1>
+</header>
+<main ng-app="courseApp">
+    <div class="container" ng-controller="courseController">
+        <h2>Courses</h2>
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="searchFilter" placeholder="Search...">
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Course Number</th>
+                        <th>Course Name</th>
+                        <th>Campus</th>
+                        <th>Professor</th>
+                        <th>Time slot</th>
+                        <th>Classroom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in courses | filter: myFilter">
+                        <td>{{c.number}}</td>
+                        <td class="fixed-col-350">{{c.name}}</td>
+                        <td>{{c.campus}}</td>
+                        <td>{{c.professor}}</td>
+                        <td>{{c.time}}</td>
+                        <td>{{c.classroom}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I implemented a filter bar using angular js's filter feature.</p>
+            <p>Filter bar is a very common practice in today's web page, to get information in real time. In this
+            case, user can type in the search input any keyword, for example, "Boston", the table will be updated
+            to display only those items containing the keyword "Boston" in real time (no need to click "search" button)</p>
+            <p>AngularJS filter is used to select a subset of items from an array and returns as a new array. So in this
+            experiment, <code>filter</code> is placed immediately behind <code>ng-repeat</code> to tell the loop which
+            item to display. Filter can be either a variable or a function. Here I used a function to deal with case
+            conversion and keyword testing on specified fields.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code shows how to enable filtering in <code>ng-repeat</code>. The <code>myFilter</code> is a
+            function.</p>
+
+        <pre>
+           &lt;tr ng-repeat="c in courses | filter: myFilter"&gt;
+                ....
+           &lt;/tr&gt;
+        </pre>
+            <p>In AngularJS, the <code>myFilter</code> is a function which takes <code>searchFilter</code> variable
+            (the one binded to the search bar input), and matches it with a bunch of fields.</p>
+
+
+        <pre>
+            $scope.myFilter = function(course) {
+                var filter = new RegExp($scope.searchFilter, 'i')
+                return !filter || filter.test(course.number) || filter.test(course.name) ||
+                        filter.test(course.campus) || filter.test(course.professor) || filter.test(course.classroom)
+            }
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>,
+            <a href="http://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app">Angular JS guide</a>
+            <h2>Source code</h2>
+
+
+            <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/2_filter_bar.html">2_filter_bar.html</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/2_filter_bar.js">2_filter_bar.js</a></p>
+        </div>
+
+    </div>
+
+
+</main>
+
+</body>
+</html>

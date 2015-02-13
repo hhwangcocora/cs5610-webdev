@@ -127,6 +127,8 @@
     studying in Boston!</p>
     <p>I like painting (sketching, oil painting) in my spare time. I also enjoy reading, watching movies
     and sports such as swimming, running, badminton and pingpong.</p>
+    <h1>Please visit following link to access my github repository:</h1>
+    <a href="https://github.com/hhwangcocora/cs5610-webdev" target="_blank">My Github</a>
 </p>
     
 <hr />
