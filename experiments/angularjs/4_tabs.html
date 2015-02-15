@@ -1,0 +1,80 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 4 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+
+    <script src="4_tabs.js"></script>
+    <style>
+        .activeTab {
+            border: solid 1px gray;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 4: Tabs using angular JS</h1>
+</header>
+<main ng-app="tabsApp">
+    <div class="container" ng-controller="tabsController as tabs">
+        <ul class="list-inline list-unstyled">
+            <li><a  ng-class="{'activeTab': tabs.show(1)}" href ng-click="tabs.click(1)">Documentation</a></li>
+            <li><a  ng-class="{'activeTab': tabs.show(2)}" href ng-click="tabs.click(2)">Code Snippet</a></li>
+            <li><a  ng-class="{'activeTab': tabs.show(3)}" href ng-click="tabs.click(3)">Source Code</a></li>
+            <li><a  ng-class="{'activeTab': tabs.show(4)}" href ng-click="tabs.click(4)">References</a></li>
+        </ul>
+
+        <div class="bg-success">
+            <div ng-show="tabs.show(1)">
+                <h2>Documentation</h2>
+
+                <p>In this experiment, I tried to implement a multi-tab page from scratch using AngularJS..</p>
+                <p>There are 2 tabs in this page and each tab is associated with one info page. I used AngularJS's
+                <code>ng-show</code> to show the specific page based on the variable <code>activeTab</code>.</p>
+                <p>Also, <code>ng-class</code> is used to render the tab when user switch from one another. One thing
+                I learned from this experiment is, if the class name has - inside, then be sure to surround it with single
+                quotes. </p>
+            </div>
+            <div ng-show="tabs.show(2)">
+                <h2>Code Snippet</h2>
+                <p>Following code shows how the tab swith is done. <code>tabs.click(1)</code> will set the <code>activeTab</code>
+                to 1, and this change will further impact <code>ng-class</code> of the tab and <code>ng-show</code> of the content.</p>
+                <pre>
+                   &lt;ul class="list-inline list-unstyled">
+                       &lt;li&gt;&lt;a  ng-class="{'activeTab': tabs.show(1)}" href ng-click="tabs.click(1)"&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+                       ....
+                   &lt;/ul&gt;
+
+                    &lt;div class="bg-success"&gt;
+                        &lt;div ng-show="tabs.show(1)"&gt;
+                            &lt;h2&gt;Documentation&lt;/h2&gt;
+
+                            ....
+                        &lt;/div&gt;
+                </pre>
+
+            </div>
+            <div ng-show="tabs.show(3)">
+                <h2>Source Code</h2>
+                <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/4_tabs.html">4_tabs.html</a></p>
+                <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/4_tabs.js">4_tabs.js</a></p>
+            </div>
+            <div ng-show="tabs.show(4)">
+                <h2>References</h2>
+                <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>,
+                <a href="http://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app">Angular JS guide</a>
+
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
