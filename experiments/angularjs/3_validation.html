@@ -1,0 +1,158 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 4 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+
+    <script src="3_validation.js"></script>
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 3: Form with validation</h1>
+</header>
+<main ng-app="registerApp">
+    <div class="container" ng-controller="registerController as registerCtrl" novalidate>
+        <h2 class="bg-primary">Register</h2>
+        <form class="form-horizontal" name="myForm">
+            <div class="form-group">
+                <label for="fullName" class="col-sm-2 control-label">Name: </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="fullName" name="fullName" ng-model="registerCtrl.user.fullName" placeholder="Full Name" required>
+                </div>
+                <div class="text-danger" ng-show="myForm.fullName.$error.required">
+                    Required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateBirth" class="col-sm-2 control-label">Date of Birth: </label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="dateBirth" name="dateBirth" ng-model="registerCtrl.user.dateBirth" placeholder="mm/dd/yyyy" required>
+                </div>
+                <div class="text-danger" ng-show="myForm.dateBirth.$error.required">
+                    Required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email: </label>
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" id="email" name="email" ng-model="registerCtrl.user.email" placeholder="someone@example.com" required>
+                </div>
+                <div class="text-danger" ng-show="myForm.email.$error.required">
+                    Required
+                </div>
+                <div class="text-danger" ng-show="myForm.email.$error.email">
+                    Invalid email address
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="level" class="col-sm-2 control-label">Education Level:</label>
+                <div class="col-sm-2">
+                    <select class="form-control" id="level" ng-model="registerCtrl.user.educationLevel">
+                        <option>Bachelor</option>
+                        <option>Master</option>
+                        <option>Phd</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Gender: </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="registerCtrl.user.gender" name="inlineRadioOptions" id="male" value="male" checked> Male
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="registerCtrl.user.gender" name="inlineRadioOptions" id="female" value="female"> Female
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">Password: </label>
+                <div class="col-sm-4">
+                    <input ng-model="registerCtrl.user.password" name="password" type="password" class="form-control" id="password" placeholder="Password" required  minlength="6" maxlength="10">
+                </div>
+                <div class="text-danger" ng-show="myForm.password.$error.required">
+                    Required
+                </div>
+                <div class="text-danger" ng-show="myForm.password.$error.minlength">
+                    Too short. At least 6 characters
+                </div>
+                <div class="text-danger" ng-show="myForm.password.$error.maxlength">
+                    Too Long. At most 8 characters
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password2" class="col-sm-2 control-label">Re-enter Password: </label>
+                <div class="col-sm-4">
+                    <input ng-model="registerCtrl.user.password2" name="password2" type="password" class="form-control" id="password2" placeholder="Password" required>
+                </div>
+                <div class="text-danger" ng-show="myForm.password2.$error.required">
+                    Required
+                </div>
+                <div class="text-danger" ng-hide="registerCtrl.matchPassword()">
+                    Password not match
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-2" ng-disabled="!myForm.$valid || !registerCtrl.matchPassword()" type="button" ng-click="registerCtrl.register()">Register</button>
+        </form>
+
+
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I implemented a form with real time validation using angular JS.</p>
+            <p>It is very important to give your immediate feedback if the provided information is valid or not.
+            AngularJS, together with HTML input elements, can provides such functionality. </p>
+            <p>HTML input elements have attributes such as <code>required</code>, <code>minlength</code> and <code>maxlength</code>.
+            If the corresponding input field doesn't meet the requirement, an builtin attribute in <code>$error</code> is set to
+            be true. Angular JS can then use this property to decide whether show the error message or not. Furthermore, if
+            more complicated validation is needed, we can directly call a angular JS function.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code shows how to use <code>required</code> and <code>$error.required</code> to tell angular
+            <code>ng-show</code> whether or not to show the error message.</p>
+
+        <pre>
+           &lt;div class="form-group"&gt;
+               &lt;label for="fullName" class="col-sm-2 control-label"&gt;Name: &lt;/label&gt;
+               &lt;div class="col-sm-4"&gt;
+                   &lt;input type="text" class="form-control" id="fullName" name="fullName" ng-model="registerCtrl.user.fullName" placeholder="Full Name" required&gt;
+               &lt;/div&gt;
+               &lt;div class="text-danger" ng-show="myForm.fullName.$error.required"&gt;
+                   Required
+               &lt;/div&gt;
+           &lt;/div&gt;
+        </pre>
+            <p>Since we need to validate the two passwords are same, we need to call following function in <code>ng-show</code>. </p>
+
+
+        <pre>
+                this.matchPassword = function() {
+                    return this.user.password === this.user.password2
+                }
+        </pre>
+            <p>Besides that, we also want to enable the button only when all fields are with valid input. Following code do the trick.</p>
+            <pre>
+                &lt;button class="btn btn-primary col-sm-offset-2" ng-disabled="!myForm.$valid || !registerCtrl.matchPassword()" type="button" ng-click="registerCtrl.register()"&gt;Register&lt;/button&gt;
+            </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>,
+            <a href="http://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app">Angular JS guide</a>
+            <h2>Source code</h2>
+
+
+            <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/3_validation.html">3_validation.html</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/3_validation.js">3_validation.js</a></p>
+        </div>
+
+    </div>
+
+
+</main>
+
+</body>
+</html>
