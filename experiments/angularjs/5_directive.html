@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 4 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+
+    <script src="5_directive.js"></script>
+    <style>
+        #result {
+            outline: solid 1px lightblue;
+            height: 300px;
+            margin-top: 10px;
+        }
+        #result a {
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body ng-app="directiveApp">
+<div class="container" ng-controller="directiveController as dirCtrl">
+    <h1>Experiment 5: Self defined directive</h1>
+
+    <div class="row">
+        <query-bar></query-bar>
+    </div>
+    <div class="row">
+        <div class="col-sm-10" id="result">
+            <a target="_blank" ng-href="{{dirCtrl.wikiLink}}">{{dirCtrl.wikiLink}}</a>
+            <p>{{dirCtrl.errorMsg}}</p>
+        </div>
+    </div>
+
+    <div>
+        <h2>Documentation</h2>
+
+        <p>There are two different experiments in this page. One is using angular js <code>$http</code> module to
+        do the jsonp query, the other is self-defined directive <code>query-bar</code></p>
+        <p>This page's functionality is same as the access_wiki page, however, I replace <code>ajax</code> query
+        with angular js <code>$http</code>. </p>
+        <p>I extracted the query bar (the input field and button) to another html page and decared it as a new
+        directive <code>query-bar</code>. This makes the html page more expressive and also the query bar
+        can be used elsewhere.</p>
+
+        <h2>Code Snippet</h2>
+
+        <p> Following code shows how to use <code>$http</code> to send a JSONP request to wikipedia. Note here the
+        <code>callback=JSON_CALLBACK</code></p>
+        <pre>
+
+            var pageurl = "http://en.wikipedia.org/w/api.php?action=query&format=json&callback=JSON_CALLBACK&prop=info&inprop=url&pageids=" + page
+            $http.jsonp(pageurl).
+                success(function (data, status) {
+                    for (page in data.query.pages) {
+                        var url = data.query.pages[page]['fullurl']
+                        controller.wikiLink = url;
+                        break;
+                    }
+                }).
+                error(function (data, status) {
+                    controller.errorMsg = data
+                });
+
+        </pre>
+        <p>Following code shows how to define and use a new directive. The <code>restrict: 'E'</code> means
+        this is an element, and the <code>templateUrl</code> tells angular JS which html file to use to render
+        the directive.</p>
+        <pre>
+            app.directive('queryBar', function() {
+                return {
+                    restrict: 'E',
+                    templateUrl: '5_directive_input.html'
+                }
+            })
+        </pre>
+        <pre>
+            &lt;div class="row"&gt;
+                &lt;query-bar&gt;&lt;/query-bar&gt;
+            &lt;/div&gt;
+        </pre>
+
+
+        <h2>Reference</h2>
+
+        <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+
+        <h2>Source code</h2>
+
+        <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.html">5_directive.html</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive_input.html">5_directive_input.html</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.js">5_directive.js</a></p>
+    </div>
+
+
+</div>
+
+</body>
+</html>

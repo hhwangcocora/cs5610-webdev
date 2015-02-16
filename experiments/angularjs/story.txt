@@ -1,0 +1,7 @@
+../../story/whatisnext.htm?../experiments/angularjs/story.txt               What is Next?
+1_todo_list.html                                                            TODO list using AngularJS
+2_filter_bar.html                                                           Filter bar
+3_validation.html                                                           Form Validation
+4_tabs.html                                                                 Tabs from scratch
+5_directive.html                                                            JSONP and self-defined directive
+story.txt                                                                   The story file for this story

@@ -1,4 +1,6 @@
 ../story/whatisnext.htm?../experiments/story.txt                What is Next?
 ../story/index.htm?../experiments/html_css/story.txt            WEEK 1 - HTML and CSS experiments
 ../story/index.htm?../experiments/bootstrap/story.txt           WEEK 2 - Bootstrap experiments
+../story/index.htm?../experiments/javascript_jquery/story.txt   WEEK 3 - Javascript and JQuery experiments
+../story/index.htm?../experiments/angularjs/story.txt           WEEK 4 - AngularJS experiments
 story.txt                                                       The story file for this story

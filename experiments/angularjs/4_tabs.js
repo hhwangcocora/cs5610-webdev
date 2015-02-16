@@ -12,7 +12,7 @@ app.controller('tabsController', function ($scope){
     this.click = function (tabName) {
         this.activeTab = tabName
     }
-    
+
 
 })
 
