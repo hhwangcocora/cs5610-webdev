@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 5 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+    <script src="02_movie_service.js"></script>
+    <script src="02_angular_service.js"></script>
+
+</head>
+<body ng-app="serviceApp">
+<div class="container" ng-controller="serviceController as sctrl">
+    <h2>Experiment 02: Angular Service <small>Search movie trailers from IMDB</small></h2>
+    <div class="row">
+        <div class="col-sm-5">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="for example: james" ng-model="sctrl.movieTitle">
+            </div>
+            <button class="btn btn-primary" ng-click="sctrl.startQuery()" type="button">Find Trailers</button>
+        </form>
+        </div>
+    </div>
+    <div class="row" ng-show="sctrl.trailers.length > 0">
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Duration</th>
+            <th>Video Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="t in sctrl.trailers">
+            <td>{{t.title}}</td>
+            <td>{{t.duration}}</td>
+            <td><a ng-href="{{t.qualities[0].videoURL}}" target="_blank">Click to watch the trailer</a></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>In this experiment, I used Angular JS service (factory) to modularize my movie service such that
+    it can be used as a building block for the application. </p>
+    <p>The Angular JS framework ensures that the service is singleton, and can be injected once other
+    components depends on it. There are many builtin services such as <code>$http</code>. Here I just defined
+    my own service.</p>
+    <p>I tried to embed imdb trailer videos directly in my html page, but it seems don't work that way. So
+    I just provide links to the imdb websites.</p>
+
+
+    <h2>Code Snippet</h2>
+
+    <p>The service can be defined as following. It's named as <code>MovieService</code>, and exposes
+    <code>searchTrailer</code> at th end of the function definition. The <code>searchTrailer</code> function
+    accepts not only title, but also callback function from clients.</p>
+    <pre>
+        var app = angular.module('serviceApp', [])
+
+        app.factory('MovieService', function($http){
+                var searchTrailer = function(title, callback) {
+                    var url = 'http://www.myapifilms.com/imdb?title='+encodeURIComponent(title)+'&format=JSONP&...&callback=JSON_CALLBACK'
+                    $http.jsonp(url).success(function(resp, status){
+                        ...
+                        callback(trailers)
+                    })
+                }
+            return {
+                searchTrailer: searchTrailer
+            }
+    </pre>
+    <p>Following code shows how the service is used by controller. First of all, it utilizes dependency injection to
+    get <code>MovieService</code>. Then, it calls its <code>searchTrailer</code> function and passes in the callback function.</p>
+    <pre>
+        app.controller('serviceController', function (MovieService){
+            this.trailers = []
+            var controller = this;
+            this.startQuery = function() {
+                MovieService.searchTrailer(controller.movieTitle, function(resp){
+                    console.log(resp)
+                    controller.trailers = resp
+                })
+            }
+        })
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+    <a href="http://www.myapifilms.com/" target="_blank">My API Films</a>
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/02_angular_service.html">02_angular_service.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/02_angular_service.js">02_angular_service.js</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/02_movie_service.js">02_movie_service.js (the service)</a></p>
+</footer>
+</body>
+</html>

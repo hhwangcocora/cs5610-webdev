@@ -6,5 +6,6 @@ Bookmark and Tags display and filter
 Routing
 Show google map on html page
 Draw chart on html page (JointJS/Rappid Chart plugin)
+A floating Chat box
 
 
