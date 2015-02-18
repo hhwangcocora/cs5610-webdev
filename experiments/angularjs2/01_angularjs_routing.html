@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 5 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+
+    <script src="01_angularjs_routing.js"></script>
+</head>
+<body ng-app="routingApp">
+<div class="container">
+    <nav class="nav navbar-collapse">
+        <a href="#/home">Home</a> |
+        <a href="#/documentation">Documentation</a> |
+        <a href="#/codesnippet">Code Snippet</a> |
+        <a href="#/references">References</a>
+    </nav>
+    <br/>
+    <div ng-view></div>
+</div>
+</body>
+</html>

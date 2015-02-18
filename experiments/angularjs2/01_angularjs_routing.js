@@ -2,8 +2,8 @@
  * Created by hhwang on 2/18/15.
  */
 var app = angular.module('routingApp', ['ngRoute']) // depend on the route module
-app.controller('routingController', function (){
-    this.hello = 'Hello'
+app.controller('HomeController', function (){
+
 
 })
 
@@ -16,13 +16,15 @@ app.config(['$routeProvider', // Config route // Use the url to store the state 
                 controllerAs: 'hc'
 
             }).
-            when('/about', {
-                templateUrl: 'partials/about.html'
+            when('/documentation', {
+                templateUrl: 'partials/documentation.html'
             }).
-            when('/contact', {
-                templateUrl: 'partials/contact.html'
+            when('/codesnippet', {
+                templateUrl: 'partials/codesnippet.html'
+            }).
+            when('/references', {
+                templateUrl: 'partials/references.html'
             }).
             otherwise('/home')
     }]
-
 )

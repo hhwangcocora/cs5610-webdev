@@ -1,0 +1,41 @@
+<ol class="breadcrumb">
+    <li><a href="#/home">Home</a></li>
+    <li class="active">Code Snippet</li>
+</ol>
+<h2>Code Snippet</h2>
+<p>Following code shows how to use Angular JS route module to control navigation to different pages.
+Here <code>$routeProvider</code> is the builtin module name, and within the <code>config()</code> we configures
+different html pages and their controller for different navigation path. On html page, we use <code>ng-view</code>
+to embed those pages.</p>
+<pre>
+    app.config(['$routeProvider',
+    function($routeProvider){
+        $routeProvider.
+            when('/home', {
+                templateUrl: 'partials/home.html',
+                controller: 'HomeController',
+                controllerAs: 'hc'
+
+            }).
+            ...
+            otherwise('/home')
+    }]
+)
+</pre>
+<pre>
+    &lt;nav class="nav navbar-collapse"&gt;
+        &lt;a href="#/home"&gt;Home&lt;/a&gt; |
+        &lt;a href="#/documentation"&gt;Documentation&lt;/a&gt; |
+        &lt;a href="#/codesnippet"&gt;Code Snippet&lt;/a&gt; |
+        &lt;a href="#/references"&gt;References&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;br/&gt;
+    &lt;div ng-view&gt;&lt;/div&gt;
+</pre>
+<p>The navigation path is implemented by using a simple <code>ol</code> with class setting to <code>breadcrumb</code></p>
+<pre>
+    &lt;ol class="breadcrumb"&gt;
+        &lt;li&gt;&lt;a href="#/home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="active"&gt;Code Snippet&lt;/li&gt;
+    &lt;/ol&gt;
+</pre>
