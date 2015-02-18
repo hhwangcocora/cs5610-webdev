@@ -1,0 +1,10 @@
+Embed video
+Page path
+Timer
+Bookmark and Tags
+Bookmark and Tags display and filter
+Routing
+Show google map on html page
+Draw chart on html page (JointJS/Rappid Chart plugin)
+
+

@@ -1,0 +1,11 @@
+===========
+Router - navigate to different pages, client side, never refresh page
+angular-route.min.js
+angular-route.min.js.map
+Central controller knows what event to what page, instead of the page itself to know where the page is. (Design Pattern)
+Use the url to remember the state. Back and Forward button still work.
+
+
+
+
+
