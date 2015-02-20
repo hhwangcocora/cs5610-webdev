@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 5 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=place&sensor=false&language=en"></script>
+    <script src="../js/lodash.min.js"></script>
+    <script src="../js/angular-google-maps.min.js"></script>
+
+    <script src="03_google_map.js"></script>
+    
+    <style>
+        .angular-google-map-container {
+            width: 500px;
+            height: 400px;
+        }
+    </style>
+
+</head>
+<body ng-app="MapApp">
+<div class="container" ng-controller="MapController">
+    <script type="text/ng-template" id="searchbox.tpl.html">
+        <input type="text" placeholder="Search Box">
+    </script>
+    <ui-gmap-google-map center="map.center" zoom="map.zoom">
+        <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id"></ui-gmap-marker>
+        <!--<ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>-->
+    </ui-gmap-google-map>
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p></p>
+    <p></p>
+    <p></p>
+
+    <h2>Code Snippet</h2>
+
+    <p></p>
+    <pre></pre>
+    <p></p>
+    <pre></pre>
+
+    <h2>Reference</h2>
+
+    <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.html">5_directive.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.js">5_directive.js</a></p>
+</footer>
+</body>
+</html>

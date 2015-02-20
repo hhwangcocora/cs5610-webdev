@@ -5,6 +5,19 @@ angular-route.min.js.map
 Central controller knows what event to what page, instead of the page itself to know where the page is. (Design Pattern)
 Use the url to remember the state. Back and Forward button still work.
 
+===========
+jQuery is an API to standarize browser, work directly with DOM
+AngularJS creates a higher level abstraction, object-oriented model, it's never
+aware of the specific DOM. If it finds jQuery already loaded, it'll use jQuery as its low level lib. It has its own low level lib.
+Bootstrap.js does depend on jQuery
+
+href="#/profile/{{username}}"
+when('/profile/:user', {})     // path parameter to controller
+$routeParams  // responsible to pass parameter to controller, create a map
+
+
+
+
 
 
 
