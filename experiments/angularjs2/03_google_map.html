@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
     <script src="../js/angular.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=place&sensor=false&language=en"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
     <script src="../js/lodash.min.js"></script>
     <script src="../js/angular-google-maps.min.js"></script>
+    <script src="http://www.google.com/jsapi"></script>
 
     <script src="03_google_map.js"></script>
     
@@ -22,36 +23,82 @@
 </head>
 <body ng-app="MapApp">
 <div class="container" ng-controller="MapController">
-    <script type="text/ng-template" id="searchbox.tpl.html">
+    <h1>Experiment 3: Google Map using AngularJS Google Map API</h1>
+    <!--<script type="text/ng-template" id="searchbox.tpl.html">
         <input type="text" placeholder="Search Box">
-    </script>
-    <ui-gmap-google-map center="map.center" zoom="map.zoom">
-        <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id"></ui-gmap-marker>
-        <!--<ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>-->
-    </ui-gmap-google-map>
-
+    </script>-->
+    <div class="row">
+        <div class="col-md-6">
+            <ui-gmap-google-map center="map.center" zoom="map.zoom">
+                <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" events="marker.events"></ui-gmap-marker>
+                <!--<ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>-->
+            </ui-gmap-google-map>
+        </div>
+        <div class="col-md-4">
+            <p>Latitude: {{latitude}}</p>
+            <p>Longitude: {{longitude}}</p>
+        </div>
+    </div>
 </div>
 <footer class="container">
     <h2>Documentation</h2>
-    <p></p>
-    <p></p>
-    <p></p>
+    <p>In this experiment, I embedded a google map in my page using angular google map api.</p>
+    <p>When user open the web page, the map should show the current geo location of the user's place. This is achieved by
+    using <code>google.loader.ClientLocation</code> which can returns the latitude and longitude.</p>
+    <p>The marker on the map is draggable. Each time user drags it, the location on right side will be updated. Also,
+    the map's center is relocated to the marker. </p>
 
     <h2>Code Snippet</h2>
 
-    <p></p>
-    <pre></pre>
-    <p></p>
-    <pre></pre>
+    <p>Angular directives <code>ui-gmap-google-map</code> embedded a google map in the html page. And the directive
+    <code>ui-gmap-marker</code> puts a marker on the map. </p>
+    <pre>
+        &lt;ui-gmap-google-map center="map.center" zoom="map.zoom"&gt;
+            &lt;ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" events="marker.events"&gt;&lt;/ui-gmap-marker&gt;
+        &lt;/ui-gmap-google-map&gt;
+    </pre>
+    <p>Following angular js code provides the values for the view</p>
+    <pre>
+        $scope.map = {
+            center: {latitude: $scope.latitude, longitude: $scope.longitude},
+            zoom: 12
+        }
+        $scope.marker = {
+            id: 0,
+            coords: {
+                latitude: $scope.latitude,
+                longitude: $scope.longitude
+            },
+            options: {
+                draggable: true
+            },
+            events: {
+                dragend: function(event) {
+                    $scope.latitude = event.position.k
+                    $scope.longitude = event.position.D
+                    $scope.map['center'] = {latitude: $scope.latitude, longitude: $scope.longitude}
+                }
+            }
+        }
+    </pre>
+    <p>And following code gets user's current location, and passes to scope variables to initialize map location.</p>
+    <pre>
+        if (google.loader.ClientLocation) {
+            $scope.latitude = google.loader.ClientLocation.latitude
+            $scope.longitude = google.loader.ClientLocation.longitude
+        }
+    </pre>
 
     <h2>Reference</h2>
 
     <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+    <a href="http://angular-ui.github.io/angular-google-maps/#!/" target="_blank">Angular Google Map</a>
+    <a href="https://developers.google.com/maps/documentation/javascript/reference">Google Maps Javascript V3</a>
 
     <h2>Source code</h2>
 
-    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.html">5_directive.html</a></p>
-    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.js">5_directive.js</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/03_google_map.html">03_google_map.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/03_google_map.js">03_google_map.js</a></p>
 </footer>
 </body>
 </html>
