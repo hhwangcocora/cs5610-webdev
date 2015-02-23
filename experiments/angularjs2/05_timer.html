@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 5 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="../js/angular.min.js"></script>
+
+    <script src="05_timer.js"></script>
+</head>
+<body ng-app="timerApp">
+<div class="container" ng-controller="timerController as tc">
+
+    <h1>Experiment 05: A Task Recorder </h1>
+    <h2><small>Record your task duration using following timer.</small></h2>
+    <div class="row">
+        <div class="col-sm-5">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="For example: read paper" ng-model="tc.taskName">
+                </div>
+                <button class="btn btn-primary" ng-click="tc.startTask()" type="button" ng-hide="tc.inprogress">Start Task</button>
+                <!--<button class="btn btn-primary" ng-click="tc.pauseTask()" type="button">Pause</button>-->
+                <button class="btn btn-danger" ng-click="tc.stopTask()" type="button" ng-show="tc.inprogress">Stop Task</button>
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-show="tc.inprogress">
+        <h3> {{tc.hours}} hours {{tc.minutes}} minutes {{tc.seconds}} seconds</h3>
+    </div>
+    <h2><small>Tasks Log</small></h2>
+    <div class="row">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Start Time</th>
+                <th>Stop Time</th>
+                <th>Duration</th>
+                <th>Task</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="task in tc.tasks">
+                <td>{{task.startTime}}</td>
+                <td>{{task.stopTime}}</td>
+                <td>{{task.duration}}</td>
+                <td>{{task.taskName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>In this experiment, I implemented a timer to record the time spend on tasks. User can input some task name and
+        click the <code>Start task</code> button to start a task. There will be a timer appear counting the duration.
+    When uesr clicks <code>Stop Task</code>, the task will be put into the table below.</p>
+    <p>The timer is implemented using <code>setInterval</code> and <code>clearInterval</code> function calls. </p>
+    <p>The lesson I learned from this experiment is, the changes to model inside callback function may not update the
+    screen. Hence we need to specially inform web page about the changes by calling <code>$scope.$apply</code>.</p>
+
+    <h2>Code Snippet</h2>
+    <p>Following code is used to start a task when user clicks <code>Start Task</code> button. Notice the use
+    of <code>$scope.$apply</code> function. It'll tell angular to update the values on the page as models change.</p>
+    <pre>
+            this.startTask = function() {
+                controller.inprogress = true
+                controller.task['startTime'] = new Date().toString()
+                controller.task['taskName'] = controller.taskName
+                controller.totalSeconds = 0
+                controller.timer = setInterval(function(){
+                    $scope.$apply(function(){
+                        ++controller.totalSeconds
+                        controller.hours = parseInt(controller.totalSeconds/3600)
+                        controller.minutes = parseInt((controller.totalSeconds%3600)/60)
+                        controller.seconds = (controller.totalSeconds%3600)%60
+                    })
+                }, 1000)
+            }
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+    <a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html" target="_blank">Blog about angularjs apply</a>
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/05_timer.html">05_timer.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/05_timer.js">05_timer.js</a></p>
+</footer>
+</body>
+</html>

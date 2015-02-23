@@ -1,0 +1,7 @@
+../../story/whatisnext.htm?../experiments/angularjs2/story.txt               What is Next?
+01_angularjs_routing.html                                                    AngularJS Routing
+02_angular_service.html                                                      AngularJS Service
+03_google_map.html                                                           Embedded Google Map
+04_charts.html                                                               Charts
+05_timer.html                                                                Task Logger
+story.txt                                                                    The story file for this story

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 5 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/Chart.min.js"></script>
+
+    <script src="04_charts.js"></script>
+
+</head>
+<body ng-app="chartApp">
+<div class="container" ng-controller="chartController">
+
+    <h1>Experiment 04: Draw charts using Chart.js</h1>
+    <div class="row">
+        <h2>Line Chart</h2>
+        <div class="col-sm-8">
+            <canvas id="myLineChart" width="500" height="300"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Bar Chart</h2>
+        <div class="col-sm-8">
+            <canvas id="myBarChart" width="500" height="300"></canvas>
+        </div>
+    </div>
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>In this experiment, I tried drawing line chart and bar chart using Chart.js library.</p>
+    <p>Charts are very important part of a web page, to show statistics to user in a very straightforward way. In some
+    cases, it's even better than tables. </p>
+    <p>The Chart.js provides very succinct yet powerful api to draw different charts. This experiments only shows two
+    kinds of them, however there are also charts like pie, radar, polar area, etc. And it also provides various
+    options to customize the chart. </p>
+
+    <h2>Code Snippet</h2>
+
+    <p>Following code puts a canvas on the page which will be used to draw the chart.</p>
+    <pre>
+        &lt;canvas id="myLineChart" width="500" height="300"&gt;&lt;/canvas&gt;
+    </pre>
+    <p>Following is the javascript code to draw the line chart. It firstly gets the <code>myLineChart canvas</code>,
+    then create a <code>Chart</code> object using that context and provides the data.</p>
+    <pre>
+        var data = {
+        labels: ["Boston", "New York", "San Fransisco", "Washington DC", "Seattle", "Dallas"],
+        datasets: [
+            {
+                label: "Average Temperature",
+                fillColor: "rgba(0,220,220,0.2)",
+                strokeColor: "rgba(0,220,220,1)",
+                pointColor: "rgba(0,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [65, 59, 80, 81, 56, 55]
+            },
+            {
+                label: "Average Humility",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [28, 48, 40, 19, 86, 27, 90]
+            }
+        ]
+    };
+
+    var ctx = $('#myLineChart').get(0).getContext('2d')
+    var myLineChart = new Chart(ctx).Line(data, null);
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="http://www.chartjs.org/" target="_blank">Chart JS</a>
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/04_charts.html">04_charts.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs2/04_charts.js">04_charts.js</a></p>
+</footer>
+</body>
+</html>
