@@ -1,13 +1,14 @@
+Table display, remove, add using node js
 Embed video
-Timer
 Bookmark and Tags
 Bookmark and Tags display and filter
-Draw chart on html page (JointJS/Rappid Chart plugin)
 A floating Chat box
 
 xShow google map on html page
 xPage path
 xRouting
+xDraw chart on html page (JointJS/Rappid Chart plugin)
+xTimer
 
 
 === Project ===

@@ -15,9 +15,28 @@ href="#/profile/{{username}}"
 when('/profile/:user', {})     // path parameter to controller
 $routeParams  // responsible to pass parameter to controller, create a map
 
+======================
+MEAN   
+  ExpressJS (a popular node js lib), quickly create server, easy scale, prototyping
+  AngularJS MVC Framework)
+  Node
+NodeJS
+npm (package dependency management, equevalent to maven)
+node js is a js interpreter and libraries
+npm install express
 
+require('express')  // equivalent to import
+app.get('/', function (req, res) {
+  res.send('aa');
+  res.json(alice);
+});
+app.listen(3000)
+app.use(express.static(__dirname + '/public'));
 
+node ./serverApp.js
 
+var bodyParser = require('body-parser')  // parse josn in the body
+var multer = require('multer')    // multipart/form-data
 
 
 
