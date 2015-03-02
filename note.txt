@@ -38,6 +38,7 @@ node ./serverApp.js
 var bodyParser = require('body-parser')  // parse josn in the body
 var multer = require('multer')    // multipart/form-data
 
-
+====================
+Openshift.com (google account)
 
 

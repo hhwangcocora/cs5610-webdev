@@ -4,4 +4,5 @@
 ../story/index.htm?../experiments/javascript_jquery/story.txt   WEEK 3 - Javascript and JQuery experiments
 ../story/index.htm?../experiments/angularjs/story.txt           WEEK 4 - AngularJS experiments
 ../story/index.htm?../experiments/angularjs2/story.txt          WEEK 5 - AngularJS 2 and others experiments
+../story/index.htm?../experiments/nodejs/story.txt              WEEK 5 - Node.js experiments
 story.txt                                                       The story file for this story
