@@ -40,5 +40,27 @@ var multer = require('multer')    // multipart/form-data
 
 ====================
 Openshift.com (google account)
+====================
+MongoDB  (NoSQL, not relational, object oriented)
+  scalability
+  redundancy
+  huge data
+  performance
+  A little bit less strongly typed
+Data model (json, object, relational) tools to converstion
+client - server - persistent  (use json all 3 layers)
+
+db - collection - document(json)
+
+mongoose: a node js module for interacting with mongodb
+Create a schema:  var formSchema = new mongoose.Schema({name: Stirng, date:Date})  // like a class
+Create a collection: var form = mongoose.model("Form", formSchema) // the object who maintains the session with db, for a particular collection
+var form1 = new Form({name: 'aa', date: new Date()});
+form1.save()   // validate against the schema, and then insert to db
+form.find(function(err, data){})
+form.findById("", function(err, data){ data.name=''; data.save()})
+
+
+
 
 
