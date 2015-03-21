@@ -1,0 +1,73 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 8 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 5: Angular js animation during routing</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Angular js animation during routing and hide/show tags</h2>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page(admin:123)</a>
+            <p>Try switch between different tabs and also add/remove tags.</p>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I tried add animations when switching between different tabs and when user add/remove/click
+            tags.</p>
+            <p>The animation is implemented using angular js <code>ng-enter</code> and <code>ng-enter-active</code>
+            which tells how the appearance of the object should be look like.</p>
+            <p>Any objects carried with the class will animate when appear on the page.</p>
+
+            <h2>Code Snippet</h2>
+
+            <p>Following code the css code to define the animation. The second section is pre-animation, and the third
+            section is post-animation.</p>
+
+        <pre>
+            .show-animation.ng-enter {
+                -webkit-transition: .3s linear all; /* Safari/Chrome */
+                -moz-transition: .3s linear all; /* Firefox */
+                -o-transition: .3s linear all; /* Opera */
+                transition: .3s linear all; /* IE10+ and Future Browsers */
+            }
+
+            .show-animation.ng-enter{
+                /* The animation preparation code */
+                opacity: 0;
+            }
+
+            .show-animation.ng-enter.ng-enter-active {
+                /* The animation code itself */
+                opacity: 1;
+            }
+
+        </pre>
+            <p>Then <code>ng-view</code> div is with class <code>show-animation</code></p>
+
+        <pre>
+            &lt;div class="show-animation" ng-view&gt;&lt;/div&gt;
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

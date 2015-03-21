@@ -1,0 +1,87 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 7 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 1: Login and register using mongodb</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>User login and register using mongodb as backend </h2>
+        <div class="row">
+            <img src="../../images/experiments/loginpage.jpg" />
+        </div>
+        <div class="row">
+            <img src="../../images/experiments/registerpage.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this week's experiment, I worked on experiments for my final project. </p>
+            <p>The login and register forms are backed with mongo db such that all data is stored in database instead
+            of in server's memory. </p>
+            <p>The mongodb is accessed through <code>mongoose</code> plugin of node.js. In this experiment, I used
+            query and add operations. </p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code creates user schema, and then create a model using that schema. Subsequent operations will
+            use the model to operate data in mongo db. </p>
+
+        <pre>
+            userSchema = mongoose.Schema({
+                username: String,
+                password: String,
+                tasks:[{
+                    l1Tag: String,
+                    l2Tag: String,
+                    startTime: Date,
+                    stopTime: Date,
+                    duration: {hours: Number, minutes: Number, seconds: Number},
+                    totalSeconds: Number
+                }],
+                tags: [{
+                    tagName: String,
+                    subTags: [String]
+                }]
+            })
+            User = mongoose.model('User', userSchema)
+        </pre>
+            <p>Following code shows how to query by username. Be aware that the operations to database is asynchronous,
+            so we should always respond to client within the database function's callback.</p>
+
+        <pre>
+            var query = User.where({username: uname})
+            query.findOne(function (err, user) {  // This call is asynchronous, so response inside the callback function
+                if (user) {
+                    ...
+                } else {
+                    console.log(err)
+                    errorHandler(err)
+                }
+            }
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://mongoosejs.com/docs/documents.html" target="_blank">Mongoose Document</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

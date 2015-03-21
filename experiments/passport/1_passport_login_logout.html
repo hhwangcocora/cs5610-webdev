@@ -1,0 +1,94 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 8 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 1: Node.js passport login and logout</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>User login and logout using passport </h2>
+        <div class="row">
+            <img src="../../images/experiments/loginpage.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I used node.js passport module to do user login/logout.</p>
+            <p>The passport is initialized with <code>local</code> strategy, which means it will use username and
+            passport stored in mongodb to do authentication.</p>
+            <p>One thing worth mention is, register will not require passport since the url is public and it will only
+            need to write to mongodb.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code initializes passport and configure its local strategy. As you can see, it'll query
+            mongodb to get the user and its password. </p>
+
+        <pre>
+            var initPassport = function(passport, LocalStrategy) {
+                passport.use(new LocalStrategy( function(username, password, done ) {
+                    dbFindByName(username, function(user) {
+                            if (user.password == password) {
+                                return done(null, user);
+                            } else {
+                                return done(null, false, {message: 'Authentication failed'})
+                            }
+                        }, function(error) {
+                            return done(null, false, {message: 'User not exists'})
+                        })
+                }))
+                // serialize and deserialize the user to/from the session
+                passport.serializeUser(function(user, done) {
+                    done(null, user)
+                })
+                passport.deserializeUser(function(user, done) {
+                    done(null, user)
+                });
+            }
+        </pre>
+            <p>Following code shows how the passport is used. The login will need to call
+                <code>passport.authenticate('local')</code> to do authentication.</p>
+
+        <pre>
+                // Login
+                app.post(rootpath + '/userAccount/login', passport.authenticate('local'), function(req, res) {
+                    res.json({username: req.query.username})
+                })
+
+                // Logout
+                app.post(rootpath + '/userAccount/logout', auth, function(req, res) {
+                    req.logout()
+                    res.send(200)
+                })
+
+                // Loggedin
+                app.get(rootpath + '/userAccount/loggedin', function(req, res) {
+                    res.send(req.isAuthenticated() ? req.user : '0');
+                })
+
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://passportjs.org/" target="_blank">Passport Js</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

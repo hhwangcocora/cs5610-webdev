@@ -1,0 +1,62 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 8 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 4: Homepage Carousel</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Home page carousel</h2>
+        <div class="row">
+            <img src="../../images/experiments/carousel.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I added a 3 image carousel on the homepage as most website will do.</p>
+            <p>The carousel is done by using Bootstrap carousel component. Besides the html, the carousel
+            need to be explicitly enabled in javascript code. You can find the html code in home.html.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code is the javascript code to set active the carousel. The <code>inerval: 4000</code>
+            means it'll take 4 seconds to display each image, and <code>cycle: true</code> means the images
+            will be displayed in cycle.</p>
+
+        <pre>
+                app.controller('homeController', function($scope) {
+
+                    $('.carousel').carousel({
+                        interval: 4000,
+                        cycle: true
+                    })
+
+                })
+        </pre>
+
+
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://getbootstrap.com/javascript/#carousel" target="_blank">Bootstrap carousel</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

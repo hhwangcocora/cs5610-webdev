@@ -1,0 +1,96 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 8 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 3: Tags add/remove</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Enable tag add and remove</h2>
+        <div class="row">
+            <img src="../../images/experiments/tagadd.jpg" />
+        </div>
+        <div class="row">
+            <img src="../../images/experiments/tagremove.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I provides the functionality to add and remove tag so that user can personalize
+            the L1 and L2 tags.</p>
+            <p>This is achieved in client side, using html and angularjs. </p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code is html code to add the remove <code>x</code> href and the add tag form. When user
+            clicks the <code>x</code>, it will call angular js <code>removeL1Tag(tag)</code>. When user clicks
+            the add tag button, it'll call <code>addL1Tag()</code></p>
+
+        <pre>
+            &lt;ul&gt;
+                &lt;li ng-repeat="tag in timerCtrl.tags" class="timer-tag show-animation"&gt;
+                    &lt;a ng-click="timerCtrl.chooseL1Tag(tag)"
+                       ng-class="timerCtrl.isTagActivated(tag.tagName, '1') ? 'task-tag-activated' : 'task-tag-unactivated'"&gt;
+                        {{tag.tagName}}
+                        &lt;a ng-click="timerCtrl.removeL1Tag(tag)"
+                           ng-class="timerCtrl.isTagActivated(tag.tagName, '1') ? 'task-tag-activated' : 'task-tag-unactivated'"&gt;x&lt;/a&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class="timer-tag show-animation" &gt;
+                    &lt;form class="form-inline"&gt;
+                        &lt;div class="form-group"&gt;
+                            &lt;div class="input-group"&gt;
+                                &lt;input type="text" class="form-control" placeholder="Add tag"  ng-model="timerCtrl.newL1Tag"&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;button type="button" class="btn" ng-click="timerCtrl.addL1Tag()"&gt;+&lt;/button&gt;
+                    &lt;/form&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        </pre>
+            <p>RemoveL1Tag is as following. addL1Tag is similar. It'll directly edit the local copy of tags array, and then
+            call <code>updateTag</code> which calls into http service to update tags on server side.</p>
+
+        <pre>
+            this.removeL1Tag = function(tag) {
+                for (idx in this.tags) {
+                    if (this.tags[idx].tagName == tag.tagName) {
+                        this.tags.splice(idx, 1)
+                        updateTag()
+                        if (this.activatedTag.tagName == tag.tagName) {
+                            this.activatedTag = ''
+                            this.currentStatus = 'init'
+                        }
+                        break
+                    }
+                }
+            }
+            var updateTag = function() {
+                httpService.updateTags(controller.tags).then(function(res) {
+                })
+            }
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+    
+</main>
+
+</body>
+</html>

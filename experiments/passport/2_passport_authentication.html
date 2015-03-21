@@ -1,0 +1,78 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 8 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 2: Passport authentication</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Urls accessing restricted resource should pass the authentication first.</h2>
+        <h2>In this example, it's the user's tasks and tags. </h2>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I used passport module to restrict resources to only authenticated user.</p>
+            <p>Routing is implemented with <code>ng-view</code> in html page and <code>routeProvider</code> in angular js
+            file.The <code>routeProvider</code> configures the template url and controller according to event url.</p>
+            <p>Also, to switch pages programmatically inside angular js, I used <code>$location.path()</code> to
+            change current browser url path to another url. This is used when user logined in, I want to show the
+            timer page instead of the home page.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Client side uses this code to add a new task:</p>
+
+        <pre>
+                var addTask = function(task) {
+                    var url = rootpath + '/tasks/add'
+                    return postRequest(url, task)
+                }
+        </pre>
+            <p>In server side, the url <code>/tasks/add</code> need to pass middleware <code>auth</code> first
+            which will do authentication, and if failed reject the url directly. Thus when control arrives at
+            the post function, the user has authenticated. The request carries username and passport which is
+            needed to save new task to corresponding user.</p>
+
+        <pre>
+                var auth = function(req, res, next) {
+                    if (!req.isAuthenticated())
+                        res.send({message: 'Authentication failed'})
+                    else
+                        next()
+                }
+                // Add task
+                app.post(rootpath + '/tasks/add', auth, function(req, res) {
+                    dbFindByName(req.user.username, function(user) {
+                        user.tasks.push(req.body)
+                        user.save()
+                        res.json(req.body)
+                    }, function(error) {
+                        res.json({message: 'Add task failed with error ' + error})
+                    })
+                })
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://passportjs.org/" target="_blank">Passport Js</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+    
+</main>
+
+</body>
+</html>

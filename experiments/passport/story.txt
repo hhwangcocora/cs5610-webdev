@@ -1,0 +1,7 @@
+../../story/whatisnext.htm?../experiments/passport/story.txt                   What is Next?
+1_passport_login_logout.html                                  Login/Logout using passport
+2_passport_authentication.html                                Authentication using passport
+3_tags_add_remove.html                                        Add/remove tags
+4_carousel.html                                               Carousel
+5_angularjs_animation.html                                    Angularjs animation
+story.txt                                              The story file for this story

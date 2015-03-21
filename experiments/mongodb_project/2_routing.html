@@ -1,0 +1,87 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 7 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 2: Routing</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Routing between different pages (after login) </h2>
+        <div class="row">
+            <img src="../../images/experiments/timerbar.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this week's experiment, I used AngularJS routing to switch between different pages.</p>
+            <p>Routing is implemented with <code>ng-view</code> in html page and <code>routeProvider</code> in angular js
+            file.The <code>routeProvider</code> configures the template url and controller according to event url.</p>
+            <p>Also, to switch pages programmatically inside angular js, I used <code>$location.path()</code> to
+            change current browser url path to another url. This is used when user logined in, I want to show the
+            timer page instead of the home page.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code is the configuration of routing.</p>
+
+        <pre>
+            app.config(['$routeProvider',
+                function($routeProvider){
+                    var rootPath = ''
+                    $routeProvider.
+                        when(rootPath + '/home', {
+                            templateUrl: 'home.html',
+                            controller: 'homeController',
+                            controllerAs: 'homeCtrl'
+                        }).
+                        when(rootPath + '/timer', {
+                            templateUrl: 'timer.html',
+                            controller: 'timerController',
+                            controllerAs: 'timerCtrl'
+                        }).
+                        when(rootPath + '/dashboard', {
+                            templateUrl: 'dashboard.html',
+                            controller: 'dashboardController',
+                            controllerAs: 'dashboardCtrl'
+                        }).
+                        otherwise(rootPath + '/home')
+                }]
+        )
+        </pre>
+            <p>Following code shows that when user logged in, it'll switch to timer page automatically. Otherwise (logged out),
+            it'll show the home page since there is no more timer page.</p>
+
+        <pre>
+                $scope.$watch('currentUser', function(){
+                    if ($scope.currentUser) {
+                        $location.path('/timer')
+                    } else {
+                        $location.path('/home')
+                    }
+                })
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://mongoosejs.com/docs/documents.html" target="_blank">Mongoose Document</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+    
+</main>
+
+</body>
+</html>

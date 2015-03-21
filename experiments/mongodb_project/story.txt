@@ -1,0 +1,7 @@
+../../story/whatisnext.htm?../experiments/mongodb_project/story.txt                   What is Next?
+1_login_register.html                                  Save user accounts in MongoDB
+2_routing.html                                         Routing
+3_tags.html                                            Tags using NgClass
+4_timer.html                                           Self-defined filter
+5_deferred_promise.html                                Asynchronous deferred and promise
+story.txt                                              The story file for this story

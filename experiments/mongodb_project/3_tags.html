@@ -1,0 +1,76 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 7 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 3: Tags</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Select tags before start recording the time (in the timer page)</h2>
+        <div class="row">
+            <img src="../../images/experiments/tag.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this week's experiment, I implemented tag selection which is quite popular in today's websites.</p>
+            <p>The tags are just a list of tags, and displayed as list. The main challenge is to switch between
+            different css classes when user select or cancel a tag. And this is implemented by using <code>ng-class</code>
+            ternary operation <code>ng-class="expression ? class1 : class2"</code>.</p>
+            <p>Here the expression is an angular js function. It'll return true or false according to current selected
+            tag.</p>
+
+            <p>Following code is html code to display tags and their styles according to current status.</p>
+
+        <pre>
+            &lt;div class="col-sm-10, task-tag-list"&gt;
+                &lt;ul&gt;
+                    &lt;li ng-repeat="tag in timerCtrl.tags"&gt;
+                        &lt;a ng-click="timerCtrl.chooseL1Tag(tag)"
+                           ng-class="timerCtrl.isTagActivated(tag.tagName) ? 'task-tag-activated' : 'task-tag-unactivated'"&gt;
+                            {{tag.tagName}}&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        </pre>
+            <p>Following is the js code. If current display tag is the selected tag or subtag, it'll return true, which leads
+            to the use of <code>task-tag-activated</code> css style class.</p>
+
+        <pre>
+                    this.activatedTag = {}
+                    this.activatedSubTag = ''
+
+                    this.isTagActivated = function(tn) {
+                        if (tn == this.activatedTag.tagName || tn == this.activatedSubTag) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://mongoosejs.com/docs/documents.html" target="_blank">Mongoose Document</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+    
+</main>
+
+</body>
+</html>

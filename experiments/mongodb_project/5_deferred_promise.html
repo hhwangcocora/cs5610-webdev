@@ -1,0 +1,78 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 7 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 5: deferred and promise of Angular js</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Use deferred and promise to call function asynchronously</h2>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>Since I put all http operations to a separate service file, I need to use AngularJs's <code>$q deferred</code>
+            to return to caller a <code>promise</code> object.</p>
+            <p>Each functions inside the http service will return a <code>promise</code> object, and the called then
+            register to the object its callbacks to handle the result. On http response, the function inside http service
+            will resolve or reject depends on the result.</p>
+
+            <h2>Code Snippet</h2>
+
+            <p>Following code is in http service, to initiate a login request. </p>
+
+        <pre>
+            var putRequest = function(url, body) {
+                var deferred = $q.defer();
+                $http.put(url).success(function(resp, status){
+                    deferred.resolve(resp)
+                }).error(function(resp, status){
+                    deferred.reject(resp)
+                })
+                return deferred.promise;
+            }
+            var login = function(username, password) {
+                var url = rootpath + '/userAccount/login?username=' + username + '&password=' + password
+                return putRequest(url, {})
+            }
+            return { // Expose the services
+                login: login
+            }
+        </pre>
+            <p>Following code is how to register callbacks on promise object. The first function is called if the promise
+            is resolved, the second is when it is rejected.</p>
+
+        <pre>
+            httpService.login(account.username, account.password).then(
+                function(resp) {
+                    $scope.currentUser = resp.username;
+                }, function(resp) {
+                    console.log('Login failed with resp: ' + resp);
+                }
+            );
+        </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://mongoosejs.com/docs/documents.html" target="_blank">Mongoose Document</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -60,7 +60,13 @@ form1.save()   // validate against the schema, and then insert to db
 form.find(function(err, data){})
 form.findById("", function(err, data){ data.name=''; data.save()})
 
+==================
 
+rockmongo to manage mongodb
 
+Please make note of these MongoDB credentials:
+  RockMongo User: admin
+  RockMongo Password: ZBMQZrVVwq5K
+URL: https://nodejs-hhwang.rhcloud.com/rockmongo/
 
 

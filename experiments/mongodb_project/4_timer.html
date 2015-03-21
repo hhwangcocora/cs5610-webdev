@@ -1,0 +1,79 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 7 Experiment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="container">
+    <h1>Experiment 4: Self defined filter when displaying time</h1>
+</header>
+<main ng-app="todoApp">
+    <div class="container">
+        <h2>Self defined filter to show 2 digits time </h2>
+        <div class="row">
+            <img src="../../images/experiments/timer.jpg" />
+        </div>
+        <div class="row">
+            <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Go to project page (admin:123)</a>
+        </div>
+
+        <br/>
+        <div>
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I implemented a timer which has start, pause and stop functions.</p>
+            <p>To display current passed time on screen, I need to first convert the total seconds to hours, minutes
+            and seconds. Then use a filter to make sure the time is displayed as two digits number on screen.</p>
+            <h2>Code Snippet</h2>
+
+            <p>Following code do the conversion from total seconds to hours, minutes and seconds.</p>
+
+        <pre>
+                var formatTimer = function(seconds) {
+                    return {
+                        hours: parseInt(seconds/3600),
+                        minutes: parseInt((seconds%3600)/60),
+                        seconds: (seconds%3600)%60
+                    }
+                }
+        </pre>
+            <p>Following code defines a filter, which pads an extra 0 if the current number has only one digit.</p>
+
+        <pre>
+            app.filter('fixedTowLen', function () {
+                return function (number) {
+                    var num = parseInt(number, 10);
+                    if (isNaN(num)) {
+                        return num;
+                    }
+                    num = ''+num;
+                    while (num.length < 2) {
+                        num = '0'+num;
+                    }
+                    return num;
+                }
+            })
+
+        </pre>
+            <p>And following is how the filter is used in html code:</p>
+            <pre>
+                {{timerCtrl.counter.hours | fixedTowLen }}
+            </pre>
+
+            <h2>Reference</h2>
+            <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+            <a href="http://mongoosejs.com/docs/documents.html" target="_blank">Mongoose Document</a>
+            <h2>Source code</h2>
+            <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank"> Github repository </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
