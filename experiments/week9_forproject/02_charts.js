@@ -1,8 +1,62 @@
 /**
- * Created by hhwang on 2/18/15.
+ * Created by hhwang on 3/29/15.
  */
-var app = angular.module('filterApp', [])
-app.controller('filterController', function (){
+var app = angular.module('chartApp', [])
+app.controller('chartController', function (){
+
+    // Line chart
+    this.totalMinutes = {
+        labels: [],
+        datasets: [
+            {
+                label: "Total minutes per day",
+                fillColor: "rgba(0,220,220,0.2)",
+                strokeColor: "rgba(0,220,220,1)",
+                pointColor: "rgba(0,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: []
+            }
+        ]
+    };
+
+
+    // Pie chart
+
+    this.minutesPerItem = [
+        {
+            value: 0,
+            color: '#f7464a',
+            highlight: '#ff5a5e',
+            label: ''
+        },
+        {
+            value: 0,
+            color: '#46bfbd',
+            highlight: '#5ad3d1',
+            label: ''
+        },
+        {
+            value: 0,
+            color: '#fdb45c',
+            highlight: '#ffc870',
+            label: ''
+        },
+        {
+            value: 0,
+            color: '#f7cccc',
+            highlight: '#f9cccc',
+            label: ''
+        },
+        {
+            value: 0,
+            color: '#27cccc',
+            highlight: '#29cccc',
+            label: ''
+        }
+    ]
+
 
     // This is the data get from backend server
     tasks = [
@@ -86,14 +140,25 @@ app.controller('filterController', function (){
     // when we get the data, we first need to construct data structures for better search/filter
     var getByDate = function(startTime, endTime) { // startTime and endTime are all in milliseconds since 1970, 1, 1
         var filteredTasks = {
-            tasks: [],
+            tasks: [],/////////////////////////////////////////////////////////////////////////////////////////////
             minutesEachDay: {
-                // date -> hours
+                // date -> minutes
             },
             minutesEachTag: {
-                // tagName -> hours
+                // tagName -> minutes
             }
         }
+        // fill in all date with 0
+        var myDate = new Date(startTime)
+        while (myDate.getTime() < endTime) {
+            var convertedDate = '' + myDate.getMonth() + '-' + myDate.getDate()
+            if (! filteredTasks.minutesEachDay.hasOwnProperty(convertedDate)) {
+                filteredTasks.minutesEachDay[convertedDate] = 0
+            }
+            // add 24 hours to myDate
+            myDate.setTime(myDate.getTime() + 24*3600000)
+        }
+
         for (var idx in tasks) {
             var task = tasks[idx]
             if (task.startTime >= startTime && task.startTime <= endTime) {
@@ -120,27 +185,18 @@ app.controller('filterController', function (){
                 }
             }
         }
-        // convert all seconds or milliseconds to hours
+        // convert all seconds or milliseconds to minutes
         for (var idx in filteredTasks.minutesEachDay) {
             if (filteredTasks.minutesEachDay.hasOwnProperty(idx)) {
-                filteredTasks.minutesEachDay[idx] /= 3600
+                filteredTasks.minutesEachDay[idx] = Math.floor(filteredTasks.minutesEachDay[idx]/60)
             }
         }
         for (var idx in filteredTasks.minutesEachTag) {
             if (filteredTasks.minutesEachTag.hasOwnProperty(idx)) {
-                filteredTasks.minutesEachTag[idx] /= 3600
+                filteredTasks.minutesEachTag[idx] = Math.floor(filteredTasks.minutesEachTag[idx] / 60)
             }
         }
-        // fill in missing date
-        var myDate = new Date(startTime)
-        while (myDate.getTime() < endTime) {
-            var convertedDate = '' + myDate.getMonth() + '-' + myDate.getDate()
-            if (! filteredTasks.minutesEachDay.hasOwnProperty(convertedDate)) {
-                filteredTasks.minutesEachDay[convertedDate] = 0
-            }
-            // add 24 hours to myDate
-            myDate.setTime(myDate.getTime() + 24*3600000)
-        }
+
         return filteredTasks
     }
 
@@ -174,13 +230,70 @@ app.controller('filterController', function (){
 
         this.currentTasks = getByDate(startTime, endTime)
         console.log(this.currentTasks)
+
+        this.hasDataForLineChart = false
+        this.hasDataForPieChart = false
+
+        // init the data for the charts
+        this.totalMinutes.labels = []
+        this.totalMinutes.datasets[0].data = []
+        for (var d in this.currentTasks.minutesEachDay) {
+            if (this.currentTasks.minutesEachDay.hasOwnProperty(d)) {
+                this.totalMinutes.labels.push(d)
+                this.totalMinutes.datasets[0].data.push(this.currentTasks.minutesEachDay[d])
+                if (this.currentTasks.minutesEachDay[d] > 0) {
+                    this.hasDataForLineChart = true
+                }
+            }
+        }
+        var count = 0
+        while (count < 5) {
+            this.minutesPerItem[count].value = 0
+            count++
+        }
+        count = 0
+        for (var t in this.currentTasks.minutesEachTag) {
+            if (this.currentTasks.minutesEachTag.hasOwnProperty(t)) {
+                this.hasDataForPieChart = true
+                this.minutesPerItem[count].label = t
+                this.minutesPerItem[count].value = this.currentTasks.minutesEachTag[t]
+                count++;
+                if (count > 5) {
+                    break;
+                }
+            }
+        }
+
+        if (lineChart1 != null) {
+
+            lineChart1.clear().destroy()
+
+            lineChart1 = null
+        }
+        if (pieChart1 != null) {
+            pieChart1.clear().destroy()
+
+            pieChart1 = null
+        }
+
+        if (this.currentDuration.value != '1day' && this.hasDataForLineChart) {
+            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.totalMinutes, null);
+        }
+
+        if (this.hasDataForPieChart) {
+            pieChart1 = new Chart($('#pieChart1').get(0).getContext('2d')).Pie(this.minutesPerItem, null);
+        }
+
     }
+
+
+    this.hasDataForLineChart = false
+    this.hasDataForPieChart = false
 
     this.changeDuration()  // call to init the current tasks
 
-
-
-
+    var lineChart1 = null
+    var pieChart1 = null
 
 
 })

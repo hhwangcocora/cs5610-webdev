@@ -7,24 +7,68 @@
 
     <script src="../js/angular.min.js"></script>
 
-    <script src=""></script>
+    <script src="01_filters.js"></script>
 </head>
-<body ng-app="">
-<div class="container" ng-controller="">
+<body ng-app="filterApp">
+<div class="container" ng-controller="filterController as filterCtrl">
+    <h1>Filter the tasks by setting time duration or task name</h1>
+    <select ng-model="filterCtrl.currentDuration"
+            ng-options="op.name group by op.shade for op in filterCtrl.durationOptions"
+            ng-change="filterCtrl.changeDuration()"></select>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Start Date</th>
+                    <th>Durations (minutes)</th>
+                    <th>Task</th>
+                    <th>Sub-task</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="c in filterCtrl.currentTasks.tasks">
+                    <td>{{c.startTime}}</td>
+                    <td>{{c.duration}}</td>
+                    <td>{{c.l1Tag}}</td>
+                    <td>{{c.l2Tag}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 </div>
 <footer class="container">
     <h2>Documentation</h2>
-    <p></p>
-    <p></p>
-    <p></p>
+    <p>In this experiment, I wrote code to display tasks within a specified range.</p>
+    <p>User can change the time duration using the <code>select</code> field, and the table will be updated with tasks
+    only within that period.</p>
+    <p>The <code>select</code> is implemented by using <code>ngOptions</code> which supports grouping options into
+    different groups. Each time user changed the duration, a function will go though all the tasks and put only those
+    meets the time requirements into current tasks list, then be displayed in the table. </p>
 
     <h2>Code Snippet</h2>
 
-    <p></p>
-    <pre></pre>
-    <p></p>
-    <pre></pre>
+    <p>Following code shows how the <code>ngOptions</code> is used in the <code>select</code>. </p>
+    <pre>
+        &lt;select ng-model="filterCtrl.currentDuration"
+                ng-options="op.name group by op.shade for op in filterCtrl.durationOptions"
+                ng-change="filterCtrl.changeDuration()"&gt;&lt;/select&gt;
+    </pre>
+    <p>The <code>filterCtrl.durationOptions</code>  used by previous code is defined as following. Notice the <code>shade</code>
+    which will be used for grouping. I planned to use <code>notAnOption</code> to disable certain select option, but for some
+    reason it doesn't work.</p>
+    <pre>
+        this.durationOptions = [
+            {name: 'Last 1 day', shade: 'day', notAnOption: false, value: '1day'},
+            {name: 'Last 7 day', shade: 'day', notAnOption: false, value: '7day'},
+            {name: 'Last 1 month', shade: 'month', notAnOption: false, value: '1month'},
+            {name: 'Last 3 month', shade: 'month', notAnOption: true, value: '3month'}
+        ]
+    </pre>
 
     <h2>Reference</h2>
 
@@ -32,8 +76,8 @@
 
     <h2>Source code</h2>
 
-    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.html">5_directive.html</a></p>
-    <p><a href="../../fileview/Default.aspx?~/experiments/angularjs/5_directive.js">5_directive.js</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/01_filters.html">01_filters.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/01_filters.js">01_filters.js</a></p>
 </footer>
 </body>
 </html>

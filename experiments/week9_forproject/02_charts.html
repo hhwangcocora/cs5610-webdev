@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 9 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/Chart.min.js"></script>
+
+    <script src="02_charts.js"></script>
+
+</head>
+<body ng-app="chartApp">
+<div class="container" ng-controller="chartController as chartCtrl">
+
+    <h1>Experiment 02: Charts for project</h1>
+
+    <h1>Filter the tasks by setting time duration or task name</h1>
+    <select ng-model="chartCtrl.currentDuration"
+            ng-options="op.name group by op.shade for op in chartCtrl.durationOptions"
+            ng-change="chartCtrl.changeDuration()"></select>
+
+
+    <div class="row" ng-show="chartCtrl.hasDataForLineChart">
+        <h2>Line Chart: total minutes per day</h2>
+        <div class="col-sm-8">
+            <canvas id="lineChart1" width="600" height="300"></canvas>
+        </div>
+    </div>
+    <div ng-hide="chartCtrl.hasDataForLineChart">
+        <h2>No data to display</h2>
+    </div>
+    <div class="row" ng-show="chartCtrl.hasDataForPieChart">
+        <h2>Line Chart: total minutes per task</h2>
+        <div class="col-sm-8">
+            <canvas id="pieChart1" width="500" height="300"></canvas>
+        </div>
+    </div>
+
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>In this experiment, I built line chart and pie chart based on experiment 1 of this week.</p>
+    <p>The idea is, when user select different time range, the charts will display the tasks within that range
+    in a visual way. Line chart is organized by minutes per day, pie chart shows minutes per task.</p>
+    <p>I used to <code>Chart.js</code> to depict charts in html page. </p>
+
+    <h2>Code Snippet</h2>
+
+    <p>Following code puts a canvas on the page which will be used to draw the chart.</p>
+    <pre>
+        &lt;canvas id="lineChart1" width="500" height="300"&gt;&lt;/canvas&gt;
+    </pre>
+    <p>Following is the javascript code to draw the line chart. It defines the data modal template <code>totalMinutes</code>.
+    Then on each duration change, the <code>labels</code> and <code>datasets[0].data</code> will be updated with new
+    data, and the previous line chart be destroyed. Finally, <code>Line(totalMinutes, null)</code> is called to draw
+    the chart.</p>
+    <pre>
+        // Line chart
+        var lineChart1 = null
+
+        this.totalMinutes = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Total minutes per day",
+                    fillColor: "rgba(0,220,220,0.2)",
+                    strokeColor: "rgba(0,220,220,1)",
+                    pointColor: "rgba(0,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: []
+                }
+            ]
+        };
+
+        // Called on each duration change
+        if (lineChart1 != null) {
+            lineChart1.clear().destroy()
+            lineChart1 = null
+        }
+
+        if (this.currentDuration.value != '1day' && this.hasDataForLineChart) {
+            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.totalMinutes, null);
+        }
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="http://www.chartjs.org/" target="_blank">Chart JS</a>
+
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/02_charts.html">02_charts.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/02_charts.js">02_charts.js</a></p>
+</footer>
+</body>
+</html>
