@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 9 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+
+    <script src="../js/Chart.min.js"></script>
+
+    <script src="04_comment_and_like.js"></script>
+
+</head>
+<body ng-app="chartApp">
+<div class="container" ng-controller="chartController as chartCtrl">
+
+    <h1>Experiment 04: Add comments and like the post</h1>
+
+    <select ng-model="chartCtrl.currentDuration"
+            ng-options="op.name group by op.shade for op in chartCtrl.durationOptions"
+            ng-change="chartCtrl.changeDuration()"></select>
+
+
+    <div class="row" ng-show="chartCtrl.hasDataForLineChart">
+        <h2>Line Chart: total minutes per day</h2>
+        <div class="col-sm-8">
+            <canvas id="lineChart1" width="600" height="300"></canvas>
+        </div>
+
+    </div>
+    <div ng-hide="chartCtrl.hasDataForLineChart">
+        <h2>No data to display</h2>
+    </div>
+    <div class="row" ng-show="chartCtrl.hasDataForPieChart">
+        <h2>Line Chart: total minutes per task</h2>
+        <div class="col-sm-8">
+            <canvas id="pieChart1" width="500" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="row" ng-show="chartCtrl.hasDataForLineChart">
+        <div class="col-sm-2">
+            <button class="btn btn-success" type="button" ng-click="chartCtrl.post('line')">Post</button>
+        </div>
+    </div>
+
+    <div class="row" ng-repeat="po in chartCtrl.myPosts" ng-init="postIndex = $index">
+        <div class="row">
+            <h4>{{chartCtrl.currentUserName}}<small> posted on {{po.date}}:</small></h4>
+            <p>"{{po.post}}"</p>
+        </div>
+        <div class="row">
+            <a class="btn btn-link btn-sm" data-toggle="collapse" href="#theComments" aria-expanded="false"
+               aria-controls="theComments">
+                Comments ({{po.commentsNumber}})
+            </a>
+            <a class="btn btn-link" ng-click="chartCtrl.likePost($index)"><span class="glyphicon glyphicon-thumbs-up"></span><small>({{po.likesNumber}})</small></a>
+        </div>
+
+        <div class="row">
+            <div class="collapse col-sm-6" id="theComments">
+                <div>
+                    <ul class="list-unstyled">
+                        <li ng-repeat="co in po.comments">
+                            {{co.author}} said: <strong>{{co.content}}</strong> <em> - {{co.date}}</em>
+                        </li>
+                        <li>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="chartCtrl.newComment" placeholder="Comment">
+                                    <button class="btn btn-default" type="submit" ng-click="chartCtrl.submitComment(postIndex)">Submit</button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myPostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit my post</h4>
+                </div>
+                <div class="modal-body">
+                    <p contenteditable="true" id="myPostAfterEdit">{{chartCtrl.myPost}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" ng-click="chartCtrl.postTo()">Post</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+
+
+
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>This experiment was built on top of previous one. I added a <code>comments</code> and <code>likes</code> to each posted status.</p>
+    <p>User can click the <code>comments</code> to unfold all comments, and also add a new comment to the list. User can also
+    click the <code>likes</code> to like the post. One user can only like one post once.</p>
+    <p>One interesting thing is, there is nested <code>ng-repeat</code> where the outer one is to display all posts, and the inner
+    one to display all comments for each post. To get the index of the outer post inside the inner one, I used <code>ng-init</code>
+    to assgin <code>$index</code> to some variable and refer to it in inner loop.</p>
+
+
+    <h2>Code Snippet</h2>
+
+    <p>Following code is the nested <code>ng-repeat</code>. Notice here how <code>ng-init</code> is used, and how the inner
+    one refers to <code>postIndex</code></p>
+    <pre>
+        &lt;div class="row" ng-repeat="po in chartCtrl.myPosts" ng-init="postIndex = $index"&gt;
+            &lt;div class="row"&gt;
+                ...
+            &lt;/div&gt;
+            ...
+
+            &lt;div class="row"&gt;
+                &lt;div class="collapse col-sm-6" id="theComments"&gt;
+                    &lt;div&gt;
+                        &lt;ul class="list-unstyled"&gt;
+                            ...
+                            &lt;li&gt;
+                                &lt;form class="form-inline"&gt;
+                                    &lt;div class="form-group"&gt;
+                                        &lt;input type="text" class="form-control" ng-model="chartCtrl.newComment" placeholder="Comment"&gt;
+                                        &lt;button class="btn btn-default" type="submit" ng-click="chartCtrl.submitComment(postIndex)"&gt;Submit&lt;/button&gt;
+                                    &lt;/div&gt;
+                                &lt;/form&gt;
+                            &lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    </pre>
+    <p>To ensure that one user can only like one post once, I used hashtable in javascript code. The key is user's account name,
+        and value is set to 0. To get the length of the hash table, <code>Object.keys()</code> is used to get an array of hashtable's
+        keys.
+    </p>
+    <pre>
+        this.likePost = function(postIndex) {
+            controller.myPosts[postIndex].likes['alice'] = 0
+            controller.myPosts[postIndex].likesNumber = Object.keys(controller.myPosts[postIndex].likes).length
+        }
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>
+
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/04_comment_and_like.html">04_comment_and_like.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/04_comment_and_like.js">04_comment_and_like.js</a></p>
+</footer>
+</body>
+</html>

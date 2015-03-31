@@ -7,4 +7,5 @@
 ../story/index.htm?../experiments/nodejs/story.txt              WEEK 6 - Node.js experiments
 ../story/index.htm?../experiments/mongodb_project/story.txt     WEEK 7 - Mongodb experiments and course project
 ../story/index.htm?../experiments/passport/story.txt            WEEK 8 - Passport authentication
+../story/index.htm?../experiments/week9_forproject/story.txt    WEEK 9 - Angular JS for project
 story.txt                                                       The story file for this story
