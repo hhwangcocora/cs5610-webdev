@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 10 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="twemoji-awesome.css">
+
+    <script src="../js/angular.min.js"></script>
+
+    <script src="01_emoji.js"></script>
+    <style>
+        .blue-border {
+            border: solid 1px #D3D3D3;
+        }
+    </style>
+</head>
+<body ng-app="emojiApp">
+<div class="container" ng-controller="emojiController as ctrl">
+    <h1>Emoji</h1>
+    <textarea placeholder="Write your status" class="form-control" ng-model="status"></textarea>
+    <div>
+        <button type="button" class="btn btn-default" ng-click="showEmoji = true"><img src="../../images/experiments/emoji/1f600.png"></button>
+        <button type="button" class="btn btn-success pull-right" ng-click="post()">Post</button>
+    </div>
+    <div class="row" ng-show="showEmoji">
+        <div class="col-sm-6 blue-border">
+            <ul class="list-unstyled list-inline">
+                <li ng-repeat="e in emojis">
+                    <a ng-click="selectEmoji($index)"><img ng-src="../../images/experiments/emoji/{{e}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <h2>Status</h2>
+    <div ng-repeat="s in statuses">
+        <div ng-class="row">
+            <p>{{s}}</p>
+        </div>
+    </div>
+
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>In this experiment, I wrote code to display tasks within a specified range.</p>
+    <p>User can change the time duration using the <code>select</code> field, and the table will be updated with tasks
+    only within that period.</p>
+    <p>The <code>select</code> is implemented by using <code>ngOptions</code> which supports grouping options into
+    different groups. Each time user changed the duration, a function will go though all the tasks and put only those
+    meets the time requirements into current tasks list, then be displayed in the table. </p>
+
+    <h2>Code Snippet</h2>
+
+    <p>Following code shows how the <code>ngOptions</code> is used in the <code>select</code>. </p>
+    <pre>
+        &lt;select ng-model="filterCtrl.currentDuration"
+                ng-options="op.name group by op.shade for op in filterCtrl.durationOptions"
+                ng-change="filterCtrl.changeDuration()"&gt;&lt;/select&gt;
+    </pre>
+    <p>The <code>filterCtrl.durationOptions</code>  used by previous code is defined as following. Notice the <code>shade</code>
+    which will be used for grouping. I planned to use <code>notAnOption</code> to disable certain select option, but for some
+    reason it doesn't work.</p>
+    <pre>
+        this.durationOptions = [
+            {name: 'Last 1 day', shade: 'day', notAnOption: false, value: '1day'},
+            {name: 'Last 7 day', shade: 'day', notAnOption: false, value: '7day'},
+            {name: 'Last 1 month', shade: 'month', notAnOption: false, value: '1month'},
+            {name: 'Last 3 month', shade: 'month', notAnOption: true, value: '3month'}
+        ]
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/xx.html">x.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/xx.js">x.js</a></p>
+</footer>
+</body>
+</html>
