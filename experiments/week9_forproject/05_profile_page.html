@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 9 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+
+    <script src="05_profile_page.js"></script>
+
+</head>
+<body ng-app="profileApp">
+<div class="container" ng-controller="profileController as pCtrl">
+    <h2>Profile</h2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2">First Name:</span></label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.profile.firstName">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Last Name:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.profile.lastName">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">User Name:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="pCtrl.profile.userName" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Email Address:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="email" class="form-control" ng-model="pCtrl.profile.email">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Gender:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <select class="form-control" ng-model="pCtrl.profile.gender">
+                        <option>male</option>
+                        <option>female</option>
+                        <option>choose not to set</option>
+                    </select>
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Date of Birth:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="date" class="form-control" ng-model="pCtrl.profile.birthday">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-3">
+            <button type="button" class="btn btn-success" ng-show="pCtrl.profileUpdated()" ng-click="pCtrl.saveProfile()">Save Profile</button>
+        </div>
+    </form>
+    <h2>Reset Password</h2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2">Old password:</span></label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.reset.oldpassword">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">New password:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.reset.newpassword">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">New password again:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.reset.newpassword2">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-3">
+            <button type="button" class="btn btn-success" ng-click="pCtrl.resetPassword()">Reset Password</button>
+        </div>
+    </form>
+    <h2>Friends</h2>
+
+    <div class="row">
+        <ul class="list-unstyled list-inline">
+            <li ng-repeat="friend in pCtrl.profile.friends">
+                <button class="btn btn-link" ng-click="pCtrl.visitHomepage($index)"><span class="glyphicon glyphicon-user"></span> <span class="lead">{{friend}}</span></button>
+                <button class="btn btn-sm" ng-click="pCtrl.unfriend($index)">Un-follow</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchedUser" placeholder="Search user">
+                    <button class="btn btn-success" ng-click="pCtrl.searchFriend()"><span
+                            class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-show="pCtrl.searchResults">
+        <ul class="bg-info">
+            <li ng-repeat="friend in pCtrl.searchResults">
+                <button class="btn btn-link" ng-click="pCtrl.visitHomepage($index)"><span class="glyphicon glyphicon-user"></span> <span class="lead">{{friend}}</span></button>
+                <button class="btn btn-success" ng-click="pCtrl.friend($index)">Follow</button>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+    <p>This is the experiment for user's profile page in my project. The page contains typical user information
+    such as name, email, gender, and also provides resetting password functionality. It also displays all friends.</p>
+    <p>Besides, users can also update their profile information and follow/unfollow friends.</p>
+    <p>The search bar provides a way to search for a friend. In this experiment, it doesn't actually work. It's just
+    a demo shows how the search would work.</p>
+
+    <h2>Code Snippet</h2>
+
+    <p>Following code is to unfollow user. Un-follow would just remove the user
+    from profile's friend list, as following <code>unfriend(index)</code> shows.</p>
+    <pre>
+        this.unfriend = function(index) {
+            controller.profile.friends.splice(index, 1)
+        }
+    </pre>
+    <p>Following code displays the search bar and the search result. It'll only show the result when <code>searchResults</code>
+    is not null. For now, search result only add hard coded users.</p>
+    <pre>
+        &lt;div class="row"&gt;
+            &lt;div class="col-sm-10"&gt;
+                &lt;form class="form-inline"&gt;
+                    &lt;div class="form-group"&gt;
+                        &lt;input type="text" class="form-control" ng-model="searchedUser" placeholder="Search user"&gt;
+                        &lt;button class="btn btn-success" ng-click="pCtrl.searchFriend()"&gt;&lt;span
+                                class="glyphicon glyphicon-search"&gt;&lt;/span&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="row" ng-show="pCtrl.searchResults"&gt;
+            &lt;ul class="bg-info"&gt;
+                &lt;li ng-repeat="friend in pCtrl.searchResults"&gt;
+                    &lt;button class="btn btn-link" ng-click="pCtrl.visitHomepage($index)"&gt;&lt;span class="glyphicon glyphicon-user"&gt;&lt;/span&gt; &lt;span class="lead"&gt;{{friend}}&lt;/span&gt;&lt;/button&gt;
+                    &lt;button class="btn btn-success" ng-click="pCtrl.friend($index)"&gt;Follow&lt;/button&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        this.searchFriend = function() {
+            controller.searchResults = ['Mary', 'gary']
+        }
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+    <a href="http://getbootstrap.com/css/" target="_blank">Bootstrap CSS</a>
+
+    <h2>Source code</h2>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/05_profile_page.html">05_profile_page.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/05_profile_page.js">05_profile_page.js</a></p>
+</footer>
+</body>
+</html>

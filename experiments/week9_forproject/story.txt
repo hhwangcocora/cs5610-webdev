@@ -1,4 +1,7 @@
 ../../story/whatisnext.htm?../experiments/week9_forproject/story.txt               What is Next?
 01_filters.html                                                    Filter
-02_charts.html                                                      Line Chart and Pie Chart
+02_charts.html                                                     Line Chart and Pie Chart
+03_post_status.html                                                Post a new status
+04_comment_and_like.html                                           Comment on status and like it
+05_profile_page.html                                               User's profile page
 story.txt                                                                    The story file for this story
