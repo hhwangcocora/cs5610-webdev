@@ -1,0 +1,3 @@
+../../story/whatisnext.htm?../experiments/week10_forproject/story.txt               What is Next?
+01_profile_pic.html                                                    Profile picture
+story.txt                                                                    The story file for this story

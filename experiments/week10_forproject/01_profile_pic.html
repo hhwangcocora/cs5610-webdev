@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 10 Experiment</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+
+    <script src="01_profile_pic.js"></script>
+
+    <style>
+        .profile-pic-large {
+            width: 180px;
+            height: 180px;
+            border: 1px solid #dcdcdc;
+            padding: 1px;
+        }
+    </style>
+
+</head>
+<body ng-app="profileApp">
+<div class="container" ng-controller="profileController as pCtrl">
+
+    <h1>Experiment 01: change profile picture</h1>
+
+    <h2>Profile:</h2>
+
+    <div class="row">
+        <div class="col-sm-8">
+
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-3">First Name:</span></label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="pCtrl.profile.firstName">
+
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Last Name:</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="pCtrl.profile.lastName">
+
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">User Name:</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="pCtrl.profile.userName" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Email Address:</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="email" class="form-control" ng-model="pCtrl.profile.email">
+
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Gender:</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <select class="form-control" ng-model="pCtrl.profile.gender">
+                                <option>male</option>
+                                <option>female</option>
+                                <option>choose not to set</option>
+                            </select>
+
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Date of Birth:</label>
+
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="date" class="form-control" ng-model="pCtrl.profile.birthday">
+
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Profile Picture Link:</label>
+                    <div class="col-sm-8">
+                        <input type="url" class="form-control" ng-model="pCtrl.profile.picUrl">
+                    </div>
+                </div>
+                <div class="col-sm-offset-3">
+                    <button type="button" class="btn btn-success" ng-show="pCtrl.profileUpdated()"
+                            ng-click="pCtrl.saveProfile()">Save Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <img ng-src="{{pCtrl.displayProfilePic}}" class="profile-pic-large">
+            <h2>{{pCtrl.profile.firstName}} {{pCtrl.profile.lastName}}</h2>
+        </div>
+    </div>
+    <h2>Reset Password</h2>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2">Old password:</span></label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.reset.oldpassword">
+
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">New password:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.reset.newpassword">
+
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">New password again:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="pCtrl.reset.newpassword2">
+
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-3">
+            <button type="button" class="btn btn-success" ng-click="pCtrl.resetPassword()">Reset Password</button>
+        </div>
+    </form>
+    <h2>Friends</h2>
+
+    <div class="row">
+        <ul class="list-unstyled list-inline">
+            <li ng-repeat="friend in pCtrl.profile.friends">
+                <button class="btn btn-link" ng-click="pCtrl.visitHomepage($index)"><span
+                        class="glyphicon glyphicon-user"></span> <span class="lead">{{friend}}</span></button>
+                <button class="btn btn-sm" ng-click="pCtrl.unfriend($index)">Un-follow</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchedUser" placeholder="Search user">
+                    <button class="btn btn-success" ng-click="pCtrl.searchFriend()"><span
+                            class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-show="pCtrl.searchResults">
+        <ul class="bg-info">
+            <li ng-repeat="friend in pCtrl.searchResults">
+                <button class="btn btn-link" ng-click="pCtrl.visitHomepage($index)"><span
+                        class="glyphicon glyphicon-user"></span> <span class="lead">{{friend}}</span></button>
+                <button class="btn btn-success" ng-click="pCtrl.friend($index)">Follow</button>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+<footer class="container">
+    <h2>Documentation</h2>
+
+    <p>In this experiment, I added a a new input field for user to change his/her profile picture.</p>
+
+    <p>The profile picture is set to default picture is there is no provided url, otherwise, will display the updated one.</p>
+
+
+    <h2>Code Snippet</h2>
+
+    <p>I used an input field with <code>type=url</code> to accept picture url.</p>
+    <pre>
+        &lt;input type="url" class="form-control" ng-model="pCtrl.profile.picUrl"&gt;
+    </pre>
+    <p>Then the new picture is displayed by using <code>ng-src</code> which can set the url using the url variable.</p>
+    <pre>
+        &lt;img ng-src="{{pCtrl.displayProfilePic}}" class="profile-pic-large"&gt;
+    </pre>
+    <p>The following javascript code checks if user-defined url is null or empty, if not set display url to it, otherwise
+    set display url to default url.</p>
+    <pre>
+        controller.defaultProfileUrl = '../../images/experiments/default-profile-pic.png'
+
+        var setDisplayPic = function() {
+            if (controller.profile.picUrl && controller.profile.picUrl.length > 0) {
+                controller.displayProfilePic = controller.profile.picUrl
+            } else {
+                controller.displayProfilePic = controller.defaultProfileUrl
+            }
+        }
+    </pre>
+
+    <h2>Reference</h2>
+
+    <a href="https://docs.angularjs.org/api" target="_blank">Angular JS API</a>
+
+
+    <h2>Source code</h2>
+
+    <p>
+        <a href="../../fileview/Default.aspx?~/experiments/week10_forproject/01_profile_pic.html">01_profile_pic.html</a>
+    </p>
+
+    <p><a href="../../fileview/Default.aspx?~/experiments/week10_forproject/01_profile_pic.js">01_profile_pic.js</a>
+    </p>
+</footer>
+</body>
+</html>
