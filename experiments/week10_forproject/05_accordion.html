@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Week 10 Experiments</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+        }
+        div {
+            margin: 0px;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+        a:visited {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        a:active {
+            text-decoration: none;
+        }
+
+        .top-margin {
+            margin-top: 10px;
+        }
+
+        .background-img {
+            background-image: url("../../images/homepage/background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .background-color {
+            background: rgb(54, 54, 54); /* The Fallback */
+            background: rgba(54, 54, 54, 0.2);
+            padding: 10px 0px 10px 0px;
+        }
+
+        .nav-main {
+            color: #ffffff;
+            font-size: 1.3em;
+            font-family: Arial;
+            padding: 10px 0px 10px 0px;
+            margin-right: 40px;
+        }
+
+        .nav {
+            color: lightgray;
+            font-size: 1.1em;
+            font-family: Arial;
+            padding: 10px 0px 10px 0px;
+            margin-right: 30px;
+        }
+
+        a:hover.nav-main, a:active.nav-main, .nav-main.active {
+            border-bottom: solid 5px #0088ff;
+        }
+
+        a:hover.nav, a:active.nav, .nav.active {
+            border-bottom: solid 3px #0088ff;
+        }
+        
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+        }
+
+        .white {
+            color: white;
+        }
+        .lightgray {
+            color: lightgray;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            line-height: 1;
+        }
+        
+        .icon-person {
+            content: url("../../images/homepage/icon-person.png");
+        }
+
+        .icon-building {
+            content: url("../../images/homepage/icon-building.png");
+        }
+        .icon-home {
+            content: url("../../images/homepage/icon-home.png");
+        }
+
+        .accordion {
+            width: 200px;
+            display: inline-block;
+            position: absolute;
+        }
+
+        .accordion-title {
+            color: #31b0d5;
+            font-size: 1.2em;
+            border: 1px solid #1c94c4;
+            border-radius: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-family: Arial;
+        }
+
+        .accordion-title.active {
+            font-weight: bold;
+        }
+
+        .accordion-content {
+            display: none;
+        }
+
+        .accordion-content.open {
+            display: inline-block;
+        }
+
+        .accordion img {
+            width: 150px;
+            height: 150px;
+            padding-left: 25px;
+        }
+
+        .accordion p {
+            padding: 0px 10px 5px 10px;
+            text-align: justify;
+        }
+    </style>
+    <script language="javascript" type="text/javascript">
+        jQuery(document).ready(function() {
+            $('#homePage').fadeIn(500).show().siblings().hide();
+            $('.accordion .accordion-title').addClass('active');
+            $('.accordion .accordion-content').slideDown(300).addClass('open');
+            jQuery('#navigation a').on('click', function(e)  {
+                var currentAttrValue = jQuery(this).attr('href');
+
+                // Show/Hide Tabs
+                jQuery(currentAttrValue).fadeIn(500).show().siblings().hide();
+
+                // Change/remove current tab to active
+                jQuery(this).addClass('active').siblings().removeClass('active');
+
+                e.preventDefault();
+            });
+            function close_accordion_section() {
+                $('.accordion .accordion-title').removeClass('active');
+                $('.accordion .accordion-content').slideUp(300).removeClass('open');
+            };
+            $('.accordion-title').click(function(e) {
+                var currentAttrValue = $(this).attr('href');
+                if ($(e.target).is('.active')) {
+                    //close_accordion_section();
+                    $(this).removeClass('active');
+                    $('.accordion ' + currentAttrValue).slideUp(300).removeClass('open');
+                } else {
+                    //close_accordion_section();
+                    $(this).addClass('active');
+                    $('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
+                }
+                e.preventDefault();
+            });
+        });
+    </script>
+</head>
+<body class="background-img">
+    <div class="background-color top-margin" id="navigation">
+        <div class="container">
+            <a class="nav-main active" href="#homePage">HOME</a>
+            <a class="nav" href="#experiments">Experiments</a>
+            <a class="nav" href="#project">Project</a>
+            <a class="nav" href="#">Github</a>
+            <a class="nav" href="#">Blog</a>
+        </div>
+    </div>
+    <div class="container top-margin">
+        <div id="homePage" class="tabs">
+            <div class="accordion"  style="left:500px; top: 100px;">
+                <span class="icon icon-person"></span><a href="#aboutMe" class="accordion-title">ABOUT ME</a>
+                <div class="background-color lightgray accordion-content" id="aboutMe">
+                    <img src="../../images/homepage/my1.jpg">
+                    <p>Hi, I'm Huihong Wang, currently a CS master candidate in Northeastern University.
+                        This is my second year and I'll graduate on May soon. It's really a nice experience studying in Boston! </p>
+                    <p>I like painting (sketching, oil painting) in my spare time. I also enjoy reading,
+                        watching movies and sports such as swimming, running, badminton and pingpong.</p>
+                </div>
+            </div>
+            <div class="accordion" style="left:200px; top: 200px;">
+                <span class="icon icon-building"></span><a href="#neuCcis" class="accordion-title">NEU CCIS</a>
+                <div class="background-color lightgray accordion-content" id="neuCcis">
+                    <img src="../../images/homepage/neu-ccis.jpg">
+                    <p>Hi, I'm Huihong Wang, currently a CS master candidate in Northeastern University.
+                        This is my second year and I'll graduate on May soon. It's really a nice experience studying in Boston! </p>
+
+                </div>
+            </div>
+            <div class="accordion" style="left:800px; top: 250px;">
+                <span class="icon icon-home"></span><a href="#boston" class="accordion-title">BOSTON</a>
+                <div class="background-color lightgray accordion-content" id="boston">
+                    <img src="../../images/homepage/boston.jpg">
+                    <p>Hi, I'm Huihong Wang, currently a CS master candidate in Northeastern University.
+                        This is my second year and I'll graduate on May soon. It's really a nice experience studying in Boston! </p>
+                    <p>I like painting (sketching, oil painting) in my spare time. I also enjoy reading,
+                        watching movies and sports such as swimming, running, badminton and pingpong.</p>
+                </div>
+            </div>
+        </div>
+        <div id="experiments" class="tabs">
+            
+        </div>
+        <div id="project" class="tabs">Project</div>
+    </div>
+</body>
+<footer>
+
+</footer>
+
+</html>
