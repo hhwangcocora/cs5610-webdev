@@ -1,3 +1,7 @@
 ../../story/whatisnext.htm?../experiments/week10_forproject/story.txt               What is Next?
 01_profile_pic.html                                                    Profile picture
+02_enhance_charts.html                                                 Enhance pie chart
+03_customize_icon.html                                                 Customize web site icon
+04_homepage_design.html                                                Tabs from scratch
+05_accordion.html                                                      Accordion from scratch
 story.txt                                                                    The story file for this story

@@ -7,7 +7,7 @@ app.controller('chartController', function (){
     var controller = this
 
     // Line chart
-    this.totalMinutes = {
+    this.lineChartTotalMinutes = {
         labels: [],
         datasets: [
             {
@@ -26,7 +26,7 @@ app.controller('chartController', function (){
 
     // Pie chart
 
-    this.minutesPerItem = [
+    this.pieChartMinPerItem = [
         {
             value: 0,
             color: '#f7464a',
@@ -237,12 +237,12 @@ app.controller('chartController', function (){
         this.hasDataForPieChart = false
 
         // init the data for the charts
-        this.totalMinutes.labels = []
-        this.totalMinutes.datasets[0].data = []
+        this.lineChartTotalMinutes.labels = []
+        this.lineChartTotalMinutes.datasets[0].data = []
         for (var d in this.currentTasks.minutesEachDay) {
             if (this.currentTasks.minutesEachDay.hasOwnProperty(d)) {
-                this.totalMinutes.labels.push(d)
-                this.totalMinutes.datasets[0].data.push(this.currentTasks.minutesEachDay[d])
+                this.lineChartTotalMinutes.labels.push(d)
+                this.lineChartTotalMinutes.datasets[0].data.push(this.currentTasks.minutesEachDay[d])
                 if (this.currentTasks.minutesEachDay[d] > 0) {
                     this.hasDataForLineChart = true
                 }
@@ -250,15 +250,15 @@ app.controller('chartController', function (){
         }
         var count = 0
         while (count < 5) {
-            this.minutesPerItem[count].value = 0
+            this.pieChartMinPerItem[count].value = 0
             count++
         }
         count = 0
         for (var t in this.currentTasks.minutesEachTag) {
             if (this.currentTasks.minutesEachTag.hasOwnProperty(t)) {
                 this.hasDataForPieChart = true
-                this.minutesPerItem[count].label = t
-                this.minutesPerItem[count].value = this.currentTasks.minutesEachTag[t]
+                this.pieChartMinPerItem[count].label = t
+                this.pieChartMinPerItem[count].value = this.currentTasks.minutesEachTag[t]
                 count++;
                 if (count > 5) {
                     break;
@@ -279,11 +279,11 @@ app.controller('chartController', function (){
         }
 
         if (this.currentDuration.value != '1day' && this.hasDataForLineChart) {
-            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.totalMinutes, null);
+            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.lineChartTotalMinutes, null);
         }
 
         if (this.hasDataForPieChart) {
-            pieChart1 = new Chart($('#pieChart1').get(0).getContext('2d')).Pie(this.minutesPerItem, null);
+            pieChart1 = new Chart($('#pieChart1').get(0).getContext('2d')).Pie(this.pieChartMinPerItem, null);
         }
 
     }

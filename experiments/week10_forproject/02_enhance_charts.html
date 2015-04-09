@@ -14,7 +14,6 @@
         .label {
             background-color: #D3D3D3;
             padding: 8px;
-
         }
     </style>
 
@@ -35,20 +34,20 @@
         <div class="col-sm-8">
             <canvas id="lineChart1" width="600" height="300"></canvas>
         </div>
-        <div class="col-sm-4">
-            <div class="row" ng-repeat="item in chartCtrl.minutesPerItem">
-                <div class="col-sm-2">&nbsp;</div>
-                <div class="col-sm-4">Tag1</div>
-            </div>
-        </div>
     </div>
     <div ng-hide="chartCtrl.hasDataForLineChart">
         <h2>No data to display</h2>
     </div>
     <div class="row" ng-show="chartCtrl.hasDataForPieChart">
-        <h2>Line Chart: total minutes per task</h2>
+        <h2>Pie Chart: total minutes per task</h2>
         <div class="col-sm-8">
             <canvas id="pieChart1" width="500" height="300"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <div class="row" ng-repeat="l in labels">
+                <div class="col-sm-2" ng-style="{'background-color': l.color}">&nbsp;</div>
+                <div class="col-sm-10">{{l.label}}</div>
+            </div>
         </div>
     </div>
 
@@ -56,61 +55,58 @@
 </div>
 <footer class="container">
     <h2>Documentation</h2>
-    <p>In this experiment, I built line chart and pie chart based on experiment 1 of this week.</p>
-    <p>The idea is, when user select different time range, the charts will display the tasks within that range
-    in a visual way. Line chart is organized by minutes per day, pie chart shows minutes per task.</p>
-    <p>I used to <code>Chart.js</code> to depict charts in html page. </p>
+    <p>In this experiment, I enhanced the pie chart code to select label's color from a pool instead of hard coding.
+    Also, I added color to label table for better interpretation. (Before user need to hover mouse on pie chart to get
+        the label name and value).</p>
+    <p>Since the color and label is not static, but generated in programmatic way, thus the label table should also
+    be done dynamically. I used <code>ng-style</code> to set color for each labels.</p>
 
     <h2>Code Snippet</h2>
 
-    <p>Following code puts a canvas on the page which will be used to draw the chart.</p>
+    <p>On each duration change, following code will be called to update the pie chart's data (pieChartMinPerItem),
+    and also its labels table. As you you see, the labels table is composed with color and label, same as in the pie
+        chart's data.</p>
     <pre>
-        &lt;canvas id="lineChart1" width="500" height="300"&gt;&lt;/canvas&gt;
+        this.pieChartMinPerItem = []
+        count = 0
+        $scope.labels = []
+        for (var t in this.currentTasks.minutesEachTag) {
+            if (this.currentTasks.minutesEachTag.hasOwnProperty(t)) {
+                this.hasDataForPieChart = true
+                this.pieChartMinPerItem.push({
+                    label: t,
+                    value: this.currentTasks.minutesEachTag[t],
+                    color: $scope.colors[count],
+                    highlight: $scope.highlights[count]
+                })
+                $scope.labels.push({
+                    color: $scope.colors[count],
+                    label: t + ' (' + this.currentTasks.minutesEachTag[t] + ' minutes)'
+                })
+                count++
+            }
+        }
     </pre>
-    <p>Following is the javascript code to draw the line chart. It defines the data modal template <code>totalMinutes</code>.
-    Then on each duration change, the <code>labels</code> and <code>datasets[0].data</code> will be updated with new
-    data, and the previous line chart be destroyed. Finally, <code>Line(totalMinutes, null)</code> is called to draw
-    the chart.</p>
+    <p>Following code is to show the label table. It uses <code>ng-style</code> to set the <code>background-color</code>
+    to the label's color.</p>
     <pre>
-        // Line chart
-        var lineChart1 = null
-
-        this.totalMinutes = {
-            labels: [],
-            datasets: [
-                {
-                    label: "Total minutes per day",
-                    fillColor: "rgba(0,220,220,0.2)",
-                    strokeColor: "rgba(0,220,220,1)",
-                    pointColor: "rgba(0,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: []
-                }
-            ]
-        };
-
-        // Called on each duration change
-        if (lineChart1 != null) {
-            lineChart1.clear().destroy()
-            lineChart1 = null
-        }
-
-        if (this.currentDuration.value != '1day' && this.hasDataForLineChart) {
-            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.totalMinutes, null);
-        }
+       &lt;div class="col-sm-4"&gt;
+           &lt;div class="row" ng-repeat="l in labels"&gt;
+               &lt;div class="col-sm-2" ng-style="{'background-color': l.color}"&gt;&nbsp;&lt;/div&gt;
+               &lt;div class="col-sm-10"&gt;{{l.label}}&lt;/div&gt;
+           &lt;/div&gt;
+       &lt;/div&gt;
     </pre>
 
     <h2>Reference</h2>
 
     <a href="http://www.chartjs.org/" target="_blank">Chart JS</a>
-
+    <a href="https://docs.angularjs.org/api/ng/directive/ngStyle" target="_blank">ng-style</a>
 
     <h2>Source code</h2>
 
-    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/02_charts.html">02_charts.html</a></p>
-    <p><a href="../../fileview/Default.aspx?~/experiments/week9_forproject/02_charts.js">02_charts.js</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week10_forproject/02_enhance_charts.html">02_enhance_charts.html</a></p>
+    <p><a href="../../fileview/Default.aspx?~/experiments/week10_forproject/02_enhance_charts.js">02_enhance_charts.js</a></p>
 </footer>
 </body>
 </html>

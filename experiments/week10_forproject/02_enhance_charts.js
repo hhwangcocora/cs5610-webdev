@@ -4,13 +4,13 @@
 var app = angular.module('chartApp', [])
 app.controller('chartController', function ($scope){
 
-    $scope.colors = ['#f7464a', '#46bfbd', '#fdb45c', '#f7cccc', '#27cccc', '#680980']
-    $scope.highlights = []
+    $scope.colors = ['#f7464a', '#46bfbd', '#fdb45c', '#f7cccc', '#27cccc', '#680980', '#949494']
+    $scope.highlights = ['#ff4f4a', '#4fbfbd', '#ffbf5c', '#ffcfcc', '#2fcfcc', '#6f0f80', '#9f9f94']
 
     $scope.class = '#fff'
 
     // Line chart
-    this.totalMinutes = {
+    this.lineChartTotalMinutes = {
         labels: [],
         datasets: [
             {
@@ -26,40 +26,15 @@ app.controller('chartController', function ($scope){
         ]
     };
 
-
     // Pie chart
 
-    this.minutesPerItem = [
-        {
-            value: 0,
-            color: '#f7464a',
-            highlight: '#ff5a5e',
-            label: ''
-        },
-        {
-            value: 0,
-            color: '#46bfbd',
-            highlight: '#5ad3d1',
-            label: ''
-        },
-        {
-            value: 0,
-            color: '#fdb45c',
-            highlight: '#ffc870',
-            label: ''
-        },
-        {
-            value: 0,
-            color: '#f7cccc',
-            highlight: '#f9cccc',
-            label: ''
-        },
-        {
-            value: 0,
-            color: '#27cccc',
-            highlight: '#29cccc',
-            label: ''
-        }
+    this.pieChartMinPerItem = [
+        //{
+        //    value: 0,
+        //    color: '#f7464a',
+        //    highlight: '#ff5a5e',
+        //    label: ''
+        //}
     ]
 
     $scope.getClass = function(idx) {
@@ -120,26 +95,26 @@ app.controller('chartController', function ($scope){
         {
             l1Tag: 'IR',
             l2Tag: 'project2',
-            startTime: new Date(2015, 2, 20, 16, 10, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
+            startTime: new Date(2015, 2, 30, 16, 10, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
             duration: 5600
         },
         {
             l1Tag: 'TA hours',
             l2Tag: 'TA hours',
-            startTime: new Date(2015, 2, 27, 15, 44, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
+            startTime: new Date(2015, 3, 3, 15, 44, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
             duration: 3600
         },
         {
             l1Tag: 'IR',
             l2Tag: 'project2',
-            startTime: new Date(2015, 3, 1, 3, 2, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
+            startTime: new Date(2015, 3, 8, 3, 2, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
             duration: 1600
         },
         ,
         {
             l1Tag: 'TA hours',
             l2Tag: 'TA hours',
-            startTime: new Date(2015, 3, 3, 5, 2, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
+            startTime: new Date(2015, 3, 10, 5, 2, 1, 0).getTime(),  // milliseconds since 1970, 1, 1
             duration: 2800
         }
 
@@ -251,32 +226,34 @@ app.controller('chartController', function ($scope){
         this.hasDataForPieChart = false
 
         // init the data for the charts
-        this.totalMinutes.labels = []
-        this.totalMinutes.datasets[0].data = []
+        this.lineChartTotalMinutes.labels = []
+        this.lineChartTotalMinutes.datasets[0].data = []
         for (var d in this.currentTasks.minutesEachDay) {
             if (this.currentTasks.minutesEachDay.hasOwnProperty(d)) {
-                this.totalMinutes.labels.push(d)
-                this.totalMinutes.datasets[0].data.push(this.currentTasks.minutesEachDay[d])
+                this.lineChartTotalMinutes.labels.push(d)
+                this.lineChartTotalMinutes.datasets[0].data.push(this.currentTasks.minutesEachDay[d])
                 if (this.currentTasks.minutesEachDay[d] > 0) {
                     this.hasDataForLineChart = true
                 }
             }
         }
-        var count = 0
-        while (count < 5) {
-            this.minutesPerItem[count].value = 0
-            count++
-        }
+        this.pieChartMinPerItem = []
         count = 0
+        $scope.labels = []
         for (var t in this.currentTasks.minutesEachTag) {
             if (this.currentTasks.minutesEachTag.hasOwnProperty(t)) {
                 this.hasDataForPieChart = true
-                this.minutesPerItem[count].label = t
-                this.minutesPerItem[count].value = this.currentTasks.minutesEachTag[t]
-                count++;
-                if (count > 5) {
-                    break;
-                }
+                this.pieChartMinPerItem.push({
+                    label: t,
+                    value: this.currentTasks.minutesEachTag[t],
+                    color: $scope.colors[count],
+                    highlight: $scope.highlights[count]
+                })
+                $scope.labels.push({
+                    color: $scope.colors[count],
+                    label: t + ' (' + this.currentTasks.minutesEachTag[t] + ' minutes)'
+                })
+                count++
             }
         }
 
@@ -290,14 +267,16 @@ app.controller('chartController', function ($scope){
             pieChart1.clear().destroy()
 
             pieChart1 = null
+
         }
 
         if (this.currentDuration.value != '1day' && this.hasDataForLineChart) {
-            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.totalMinutes, null);
+            lineChart1 = new Chart($('#lineChart1').get(0).getContext('2d')).Line(this.lineChartTotalMinutes, null);
         }
 
         if (this.hasDataForPieChart) {
-            pieChart1 = new Chart($('#pieChart1').get(0).getContext('2d')).Pie(this.minutesPerItem, null);
+            pieChart1 = new Chart($('#pieChart1').get(0).getContext('2d')).Pie(this.pieChartMinPerItem, null);
+
         }
 
     }

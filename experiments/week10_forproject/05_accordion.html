@@ -153,18 +153,13 @@
 
                 e.preventDefault();
             });
-            function close_accordion_section() {
-                $('.accordion .accordion-title').removeClass('active');
-                $('.accordion .accordion-content').slideUp(300).removeClass('open');
-            };
+
             $('.accordion-title').click(function(e) {
                 var currentAttrValue = $(this).attr('href');
                 if ($(e.target).is('.active')) {
-                    //close_accordion_section();
                     $(this).removeClass('active');
                     $('.accordion ' + currentAttrValue).slideUp(300).removeClass('open');
                 } else {
-                    //close_accordion_section();
                     $(this).addClass('active');
                     $('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
                 }
@@ -185,6 +180,7 @@
     </div>
     <div class="container top-margin">
         <div id="homePage" class="tabs">
+            <h1>Experiment 05: Implements accordion using HTML/CSS and jQuery (without bootstrap)</h1>
             <div class="accordion"  style="left:500px; top: 100px;">
                 <span class="icon icon-person"></span><a href="#aboutMe" class="accordion-title">ABOUT ME</a>
                 <div class="background-color lightgray accordion-content" id="aboutMe">
@@ -216,9 +212,61 @@
             </div>
         </div>
         <div id="experiments" class="tabs">
-            
+
+            <h2>Documentation</h2>
+
+            <p>In this experiment, I implemented my homepage's accordions using html/css and jQuery, without using bootstrap.</p>
+
+            <p>All the css styles are designed from scratch. The <code>icon</code> class is similar to bootstrap's
+                <code>glyphicon</code>. The <code>accordion</code> classes defines accordion style, and also will be used
+            for jQuery to add interaction.</p>
+            <h2  class="lightgray">Reference</h2>
+
+            <p><a href="http://inspirationalpixels.com/tutorials/creating-an-accordion-with-html-css-jquery" target="_blank">Creating accordion with html css and jquery</a></p>
+            <p><a href="http://www.flaticon.com/categories/web/">Free icons</a></p>
+
+            <h2  class="lightgray">Source code</h2>
+
+            <p>
+                <a href="../../fileview/Default.aspx?~/experiments/week10_forproject/05_accordion.html">05_accordion.html</a>
+            </p>
+
+            </p>
         </div>
-        <div id="project" class="tabs">Project</div>
+        <div id="project" class="tabs">
+            <h2>Code Snippet</h2>
+            <p>Following css defines the icon. <code>icon</code> class defines the size and display in a general way. Then
+            <code>icon-person</code> class set the content to the corresponding png picture.</p>
+            <pre>
+                .icon {
+                    width: 20px;
+                    height: 20px;
+                    position: relative;
+                    top: 1px;
+                    display: inline-block;
+                    line-height: 1;
+                }
+
+                .icon-person {
+                    content: url("../../images/homepage/icon-person.png");
+                }
+            </pre>
+            <code>Following javascript code controls how accordian title and accordian content act to click event.
+            If the target title is already active, then the code will remove active and slide up the content. Otherwise, vise versa.</code>
+            <pre>
+                $('.accordion-title').click(function(e) {
+                var currentAttrValue = $(this).attr('href');
+                if ($(e.target).is('.active')) {
+                    $(this).removeClass('active');
+                    $('.accordion ' + currentAttrValue).slideUp(300).removeClass('open');
+                } else {
+                    $(this).addClass('active');
+                    $('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
+                }
+                e.preventDefault();
+            });
+            </pre>
+        </div>
     </div>
 </body>
 <footer>
