@@ -5,166 +5,111 @@
 </script>
 
 <!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-<meta charset='utf-8' />
-
-<title>Demo Home Page</title>
-
-<style type="text/css">
-    ul.master_navigation
-    {
-        font-size: 100%;
-        font-weight: bold;
-        text-align: center;
-        list-style: none;
-        margin: 0.5em 0;
-        padding: 0;
-    }
-
-    ul.master_navigation li
-    {
-        display: inline-block;
-        padding: 0 0.5%;
-    }
-
-    a
-    {
-        color: #08f;
-        font-weight: bold;
-        text-decoration: none;
-    }
-
-    a:visited
-    {
-        color: #88f;
-    }
-
-    a:hover
-    {
-        color: #f00;
-    }
-
-    p
-    {
-        text-align: justify;
-    }
-
-    #self-intro img {
-        width: 700px;
-        height: 400px;
-        background-color: #FFFF77;
-        alignment: center;
-    }
-
-</style>
-
-<style type="text/css" media="screen">
-    body {
-        width:900px;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    .pad {
-        padding: 10px;
-    }
-</style>
-
+<html  class="background-img">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Homepage of Huihong</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/homepage.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="experiments/js/angular.min.js"></script>
+    <script src="javascript/homepage.js"></script>
 </head>
-
 <body>
+    <div class="background-gray top-margin-10" id="navigation">
+        <div class="container">
+            <a class="nav-main active" href="#homePage">HOME</a>
+            <a class="nav" href="#project" id="project-tab">Project</a>
+            <a class="nav" href="story/index.htm?../experiments/story.txt" target="_blank">Experiments</a>
+            <a class="nav" href="https://github.com/hhwangcocora/cs5610-webdev" target="_blank">Github</a>
+        </div>
+    </div>
+    <div class="container top-margin-10">
+        <div id="homePage" class="tabs  top-margin-100">
+            <div class="row">
+                <div class="col-4 align-right"><img class="picture-large picture-border" src="images/homepage/my.jpg"></div>
+                <div class="col-7">
+                    <div><img src="images/homepage/name.png" style="width: 250px; height: 65px;"></div>
+                    <div class="white text-xlarge text-aria top-margin-10" ><strong>I'm pursuing Master of Science in Computer Science @Northeastern University</strong></div>
+                    <div class="lightgray text-small text-aria top-margin-10">I will graduate soon on May 2015, and before that I have 4 years working experience as a software engineer</div>
+                    <div class="blue text-small text-aria top-margin-5">Please reach me at wang.huih@husky.neu.edu</div>
+                    <div class="top-margin-10">
+                        <a class="button animation-color-change" type="button" href="#project"  id="projectSite">Projects &#9658;</a>
+                        <a class="button" href="story/index.htm?../experiments/story.txt" target="_blank">Experiments &#9658;</a>
+                        <a class="button" type="button" href="https://github.com/hhwangcocora/cs5610-webdev" target="_blank">Github &#9658;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="pad">
+        <div id="project" class="tabs top-margin-50">
+            <div class="row">
+                <div class="col-4">
+                    <div class="row align-center"><img src="images/homepage/document.png" class="picture-small"></div>
+                    <div class="row">
+                        <div class="accordion top-margin-10">
+                            <a href="#document" class="accordion-title"> &#9655; DOCUMENTS</a>
+                            <div class="accordion-content" id="document">
+                                <p class="blue text-aria">Click to visit the page <a href="#">Documents</a></p>
+                                <p class="lightgray text-aria">Design documents, code snippet and references</p>
+                                <p class="lightgray text-aria">It provides the architecture graph of the web site, together with detailed descriptions of key components</p>
 
-<form id="form1" runat="server">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row align-center"><img src="images/homepage/project.png" class="picture-small"></div>
+                    <div class="row">
+                        <div class="accordion top-margin-10">
+                            <a href="#myProject" class="accordion-title active"> &#9655; PROJECT SITE</a>
+                            <div class="accordion-content open" id="myProject">
+                                <p class="blue text-aria">Click to visit the site <a href="http://nodejs-hhwang.rhcloud.com/project/" target="_blank">Pomodoro site</a></p>
+                                <p class="lightgray text-aria">This project is about time recording and sharing</p>
+                                <p class="lightgray text-aria">User can view time statistics and share status with friends</p>
 
-<div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row align-center"><img src="images/homepage/github.png" class="picture-small"></div>
+                    <div class="row">
+                        <div class="accordion top-margin-10">
+                            <a href="#projectGithub" class="accordion-title"> &#9655; GITHUB FOR OPENSHIFT</a>
+                            <div class="accordion-content" id="projectGithub">
+                                <p class="blue text-aria">Click to visit github <a href="https://github.com/hhwangcocora/cs5610-webdev-openshift" target="_blank">Github for openshift</a></p>
+                                <p class="lightgray text-aria">Source code for this project on github</p>
+                                <p class="lightgray text-aria">The project uses MEAN stack, with site built on openshift platform, thus this github is different from the one used for experiments</p>
 
-<ul class="master_navigation">
-    <li><a href="sitestatistics/" target="_blank">SiteStatistics</a></li>
-    <li><a href="statistics/" target="_blank">Statistics</a></li>
-    <li><a href="source/" target="_blank">Source</a></li>
-    <li><a href="search/" target="_blank">Search</a></li>
-    <li><a href="searchtree/" target="_blank">SearchTree</a></li>
-    <li><a href="textview/" target="_blank">TextView</a></li>
-    <li><a href="filelist.aspx" target="_blank">FileList</a></li>
-    <li><a href="autofile.aspx" target="_blank">AutoFile</a></li>
-    <li><a href="images/autoimage.aspx" target="_blank">Images</a></li>
-    <li><a href="blog/" target="_blank">Blog</a></li>
-    <li><a href="story/index.htm?../experiments/story.txt" target="_blank">Experiments</a></li>
-</ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<hr />
+    </div>
+    <div class="footer align-right">
+        <div class="col-1 align-left">
+            <div class="white">&#9679;<a href="source/">Source</a></div>
+            <div class="white">&#9679;<a href="search/">Search</a></div>
+        </div>
+        <div class="col-1 align-left">
+            <div class="white">&#9679;<a href="searchtree/">SearchTree</a></div>
+            <div class="white">&#9679;<a href="textview/">TextView</a></div>
+        </div>
+        <div class="col-1 align-left">
+            <div class="white">&#9679;<a href="filelist.aspx" target="_blank">FileList</a></div>
+            <div class="white">&#9679;<a href="autofile.aspx" target="_blank">AutoFile</a></div>
+        </div>
+        <div class="col-1 align-left">
+            <div class="white">&#9679;<a href="images/autoimage.aspx" target="_blank">Images</a></div>
+            <div class="white">&#9679;<a href="blog/" target="_blank">Blog</a></div>
 
-<p>
-    <b>This demo page shows the navigation links that should appear
-    on the home page.</b>
-    It is not necessary that these links be at the top of the page
-    but they should be displayed nicely and be easy to find.  You
-    may alter the CSS on the page to change the placement and the
-    size of the links.
-</p>
-
-<hr />
-
-<p>
-    The home page may show some interesting content but its main
-    purpose should be to <i>provide navigation</i> to other pages
-    on your site.
-</p>
-
-<hr />
-
-<p id="self-intro">
-    <img src="images/homepage/my.jpg"/>
-    <p>Hi, I'm Huihong Wang, currently a CS master candidate in Northeastern University.
-    This is my second year and I'll graduate on May soon. It's really a nice experience
-    studying in Boston!</p>
-    <p>I like painting (sketching, oil painting) in my spare time. I also enjoy reading, watching movies
-    and sports such as swimming, running, badminton and pingpong.</p>
-    <h1>Please visit following link to access my github repository:</h1>
-    <a href="https://github.com/hhwangcocora/cs5610-webdev" target="_blank">My Github</a>
-</p>
-    
-<hr />
-
-<p>
-Here is a link to the
-<a href="story/index.htm" target="_blank">Story Utility</a>
-on this site so that you may explore this tool.
-</p>
-
-<p>
-Here is a link to the
-<a href="http://www.northeastern.edu/rasala/webstories.htm"
-        target="_blank">Web Development Stories</a>
-so that you may see a good collection of online documentation.
-</p>
-
-<p>
-This provides a model for using stories for documentation and
-for collections of experiments.
-</p>
-
-<hr />
-
-<p>
-None of the hints given above needs to be on your home page
-downstream but it is convenient to have them here at startup.
-</p>
-
-<hr />
-
-</div>
-
-</form>
-
-</div>
-
+        </div>
+    </div>
 </body>
+
+
 </html>
