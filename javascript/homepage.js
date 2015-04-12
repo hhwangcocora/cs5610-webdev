@@ -27,11 +27,11 @@ $(document).ready(function() {
         var currentAttrValue = $(this).attr('href');
         if ($(e.target).is('.active')) {
             $(this).removeClass('active');
-            $(this).context.innerText = $(this).context.innerText.replace("▽", "▷")
+            $(this).text($(this).text().replace("▽", "▷"))
             $('.accordion ' + currentAttrValue).slideUp(300).removeClass('open');
         } else {
             $(this).addClass('active');
-            $(this).context.innerText = $(this).context.innerText.replace("▷", "▽")
+            $(this).text($(this).text().replace("▷", "▽"))
             $('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
         }
         e.preventDefault();

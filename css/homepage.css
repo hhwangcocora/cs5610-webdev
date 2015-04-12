@@ -37,19 +37,17 @@ a:active {
     from {color: white;}
     to {color: orange;}
  }
+
 /* General*/
 
 .container {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+
 }
 .footer {
-    height:50px;
-    width: 100%;
-    position:absolute;
-    bottom:15px;
-    right:15px;
+    padding-top: 15px;
+    margin-bottom: 15px;
 }
 .top-margin-5 {
     margin-top: 5px;
@@ -85,12 +83,7 @@ a:active {
     text-align: left;
 }
 
-.picture-large {
-    width: 250px;
-    height: 250px;
 
-    /*box-shadow: 5px 5px 5px;*/
-}
 
 .picture-border {
     border: #ffffff solid 8px;
@@ -99,6 +92,11 @@ a:active {
 .picture-small {
     width: 150px;
     height: 150px;
+}
+
+.name-picture {
+    width: 250px;
+    height: 65px;
 }
 
 .button {
@@ -205,6 +203,7 @@ a:active {
     padding: 10px 0px 10px 0px;
     margin-right: 30px;
 }
+
 a:hover.nav-main, a:active.nav-main, .nav-main.active {
     border-bottom: solid 5px #0088ff;
     color: #0088ff;
@@ -257,12 +256,14 @@ a:hover.accordion-title {
 }
 
 /* Footer */
+
 .footer a {
-    color: #0000ff;
+    color: lightblue;
     font-family: Arial;
 }
 .footer a:hover {
-    color: lightblue;
+    color: white;
+    font-weight: 500;
 }
 
 /* Layout */
@@ -280,7 +281,6 @@ a:hover.accordion-title {
     line-height: 0px;
 }
 
-
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
     position: relative;
     min-height: 1px;
@@ -288,13 +288,52 @@ a:hover.accordion-title {
 
 }
 
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 550px) {
     .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
         display: block;
         width: 100%;
     }
+    .picture-large {
+        width: 200px;
+        height: 200px;
+
+        /*box-shadow: 5px 5px 5px;*/
+    }
+    .container {
+        width: 95%;
+    }
+    a.nav, a.nav-main {
+        display: block;
+    }
+    .footer {
+
+        width: 95%;
+
+    }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 550px) and (max-width: 800px) {
+    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+        display: block;
+        width: 100%;
+    }
+    .picture-large {
+        width: 250px;
+        height: 250px;
+
+        /*box-shadow: 5px 5px 5px;*/
+    }
+    .container {
+        width: 80%;
+    }
+    .footer {
+
+        width: 80%;
+
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1200px) {
     .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
         display: inline-block;
     }
@@ -335,8 +374,80 @@ a:hover.accordion-title {
     .col-12 {
         width: 100%;
     }
+
+    .picture-large {
+        width: 250px;
+        height: 250px;
+
+        /*box-shadow: 5px 5px 5px;*/
+    }
+    .container {
+        width: 95%;
+    }
+    .footer {
+        position: absolute;
+        width: 95%;
+        bottom: 0px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+        display: inline-block;
+    }
+
+    .col-1 {
+        width: 8.333333%;
+    }
+    .col-2 {
+        width: 16.66665%;
+    }
+    .col-3 {
+        width: 25%;
+    }
+    .col-4 {
+        width: 33.333332%;
+    }
+    .col-5 {
+        width: 41.6666665%;
+    }
+    .col-6 {
+        width: 50%;
+    }
+    .col-7 {
+        width: 58.333332%;
+    }
+    .col-8 {
+        width: 66.6666665%;
+    }
+    .col-9 {
+        width: 75%;
+    }
+    .col-10 {
+        width: 83.333332%;
+    }
+    .col-11 {
+        width: 91.666665%;
+    }
+    .col-12 {
+        width: 100%;
+    }
+
+    .picture-large {
+        width: 250px;
+        height: 250px;
+
+        /*box-shadow: 5px 5px 5px;*/
+    }
+    .container {
+        width: 80%;
+    }
+
+    .footer {
+        position: absolute;
+        width: 80%;
+        bottom: 0px;
+    }
 }
 
-/* Project page */
 
 
